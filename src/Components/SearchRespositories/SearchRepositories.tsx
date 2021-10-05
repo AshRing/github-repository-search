@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {
 	ADD_FILTER,
+	CHANGE_PAGE,
 	CHANGE_SEARCH_TERM,
 	CHANGE_SORT,
 	GET_REPOS_SUCCESS,
@@ -10,7 +11,7 @@ import {
 	repoReducer,
 	repoReducerInitialState,
 } from "./reducer";
-import { FilterSort, filters, sortValues } from "./FilterSort";
+import { FilterSort, sortValues } from "./FilterSort";
 import { IFilterSortOption, IGetRepositoriesInput } from "../../_types";
 import { ScrollToTopButton, SearchRepositoriesContainer } from "./SearchRepositories.styles";
 
@@ -53,16 +54,23 @@ export const SearchRepositories = () => {
 		if (filterSortState.searchTerm !== "") {
 			await searchRepositories();
 		}
-	}, [filterSortState.filterBy, filterSortState.sortBy]);
+	}, [filterSortState.filterBy, filterSortState.sortBy, repoState.pageNum]);
 
 	const searchRepositories = async () => {
 		const getReposInput: IGetRepositoriesInput = {
 			searchTerm: filterSortState.searchTerm,
 			filterBy: filterSortState.filterBy,
 			sortByValue: sortValues[filterSortState.sortBy],
+			pageNum: repoState.pageNum,
 		};
 		await getRepositories(getReposInput).then((res) => {
-			repoDispatch({ type: GET_REPOS_SUCCESS, repos: res.items });
+			const itemsPerPage = 30;
+			const itemsAvailable = res.total_count < 1000 ? res.total_count : 1000;
+			repoDispatch({
+				type: GET_REPOS_SUCCESS,
+				repos: res.items,
+				totalPages: Math.floor(itemsAvailable / itemsPerPage),
+			});
 		});
 	};
 
@@ -93,7 +101,8 @@ export const SearchRepositories = () => {
 			<RepoList
 				repos={repoState.repos}
 				pageNum={repoState.pageNum}
-				changePage={(direction: number) => console.log(direction)}
+				totalPages={repoState.totalPages}
+				changePage={(pageNum: number) => repoDispatch({ type: CHANGE_PAGE, pageNum })}
 			/>
 			{showScrollToTopBtn && (
 				<ScrollToTopButton onClick={() => window.scrollTo(0, 0)}>

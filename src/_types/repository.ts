@@ -25,8 +25,9 @@ export interface IRepositoryOwner {
 }
 
 export interface IGetRepositoriesInput {
-	searchTerm: string;
 	filterBy: IFilterSortOption[];
+	pageNum: number;
+	searchTerm: string;
 	sortByValue?: string;
 }
 

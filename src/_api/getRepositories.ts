@@ -4,10 +4,11 @@ import { filters } from "../Components/SearchRespositories/FilterSort";
 
 const buildQuery = (
 	searchTerm: string,
+	pageNum: number,
 	filterBy: IFilterSortOption[],
 	sortByValue?: string,
 ): string => {
-	let query = `?q=${searchTerm} in:name`;
+	let query = `?page=${pageNum}&q=${searchTerm} in:name`;
 
 	const languageFilter: IFilterSortOption = filterBy.find(
 		(filter: IFilterSortOption) => filter.name === filters.language,
@@ -32,6 +33,7 @@ export const getRepositories = async (
 	const response = await fetch(
 		`https://api.github.com/search/repositories${buildQuery(
 			input.searchTerm,
+			input.pageNum,
 			input.filterBy,
 			input.sortByValue,
 		)}`,

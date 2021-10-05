@@ -17,6 +17,7 @@ export interface IFilterSortReducerAction {
 export interface IRepoReducerState {
 	repos: IRepository[];
 	pageNum: number;
+	totalPages: number;
 	loading: boolean;
 }
 
@@ -25,4 +26,5 @@ export interface IRepoReducerAction {
 	repos?: IRepository[];
 	isLoading?: boolean;
 	pageNum?: number;
+	totalPages?: number;
 }
