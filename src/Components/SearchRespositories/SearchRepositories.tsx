@@ -6,6 +6,7 @@ import {
 	CHANGE_SEARCH_TERM,
 	CHANGE_SORT,
 	GET_REPOS_SUCCESS,
+	RESET,
 	filterSortInitialState,
 	filterSortReducer,
 	repoReducer,
@@ -49,6 +50,12 @@ export const SearchRepositories = () => {
 			}
 		};
 	}, [filterSortRef]);
+
+	React.useEffect(() => {
+		if (filterSortState.searchTerm === "") {
+			repoDispatch({ type: RESET });
+		}
+	}, [filterSortState.searchTerm]);
 
 	React.useEffect(async () => {
 		if (filterSortState.searchTerm !== "") {

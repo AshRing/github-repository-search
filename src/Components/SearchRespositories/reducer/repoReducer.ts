@@ -3,6 +3,7 @@ import { IRepoReducerAction, IRepoReducerState } from "../../../_types";
 export const CHANGE_PAGE = "CHANGE_PAGE";
 export const GET_REPOS_SUCCESS = "CHANGE_SEARCH_TERM";
 export const LOADING = "LOADING";
+export const RESET = "RESET";
 
 export const repoReducerInitialState: IRepoReducerState = {
 	loading: false,
@@ -22,6 +23,8 @@ export const repoReducer = (
 			return { ...state, repos: action.repos, totalPages: action.totalPages };
 		case LOADING:
 			return { ...state, loading: action.isLoading };
+		case RESET:
+			return repoReducerInitialState;
 		default:
 			return state;
 	}

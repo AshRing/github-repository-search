@@ -6,13 +6,13 @@ import {
 
 import { sortInputs } from "../FilterSort";
 
-export const CHANGE_SEARCH_TERM = "CHANGE_SEARCH_TERM";
 export const ADD_FILTER = "ADD_FILTER";
+export const CHANGE_SEARCH_TERM = "CHANGE_SEARCH_TERM";
 export const CHANGE_SORT = "CHANGE_SORT";
 
 export const filterSortInitialState: IFilterSortReducerState = {
-	searchTerm: "",
 	filterBy: [],
+	searchTerm: "",
 	sortBy: sortInputs.bestMatch,
 };
 
@@ -21,8 +21,6 @@ export const filterSortReducer = (
 	action: IFilterSortReducerAction,
 ): IFilterSortReducerState => {
 	switch (action.type) {
-		case CHANGE_SEARCH_TERM:
-			return { ...state, searchTerm: action.searchTerm };
 		case ADD_FILTER:
 			const filterToAdd: IFilterSortOption = {
 				name: action.filterName,
@@ -45,6 +43,8 @@ export const filterSortReducer = (
 					filterBy: [...state.filterBy, filterToAdd],
 				};
 			}
+		case CHANGE_SEARCH_TERM:
+			return { ...state, searchTerm: action.searchTerm };
 		case CHANGE_SORT:
 			return { ...state, sortBy: action.sortName };
 		default:

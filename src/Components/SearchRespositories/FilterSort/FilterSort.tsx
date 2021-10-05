@@ -6,12 +6,12 @@ import {
 	SearchInput,
 	SearchInputContainer,
 } from "./FilterSort.styles";
+import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { filters, languageFilterOptions, sortInputs } from ".";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IFilterSortOption } from "src/_types";
 import { SelectInput } from "../../../Components/Shared";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
 	addFilter: (filterToAdd: IFilterSortOption) => void;
@@ -32,6 +32,12 @@ export const FilterSort = ({
 	searchTerm,
 	sortBy,
 }: Props) => {
+	const searchInputRef: React.RefObject<HTMLInputElement> = React.useRef();
+
+	React.useEffect(() => {
+		searchInputRef.current.focus();
+	}, []);
+
 	return (
 		<FilterSortContainer
 			onSubmit={(e) => {
@@ -42,11 +48,17 @@ export const FilterSort = ({
 			<SearchInputContainer>
 				<FontAwesomeIcon icon={faSearch} />
 				<SearchInput
+					ref={searchInputRef}
 					type="text"
 					placeholder="Search Repositories"
 					value={searchTerm}
 					onChange={(e: React.ChangeEvent) => changeSearchTerm(e.target.value)}
 				/>
+				{searchTerm && (
+					<button type="button" onClick={() => changeSearchTerm("")}>
+						<FontAwesomeIcon icon={faTimes} />
+					</button>
+				)}
 			</SearchInputContainer>
 			<FilterSortGroup>
 				<div>

@@ -9,18 +9,26 @@ export const SearchInputContainer = styled.div`
 	width: 100%;
 	margin-bottom: 1rem;
 
-	& > .fa-search {
+	& > .fa-search,
+	& .fa-times {
 		position: absolute;
 		top: 50%;
-		left: 1rem;
 		transform: translate(-50%, -50%);
 		color: ${({ theme }) => theme.colors.secondary};
+	}
+
+	& > .fa-search {
+		left: 1rem;
+	}
+
+	& .fa-times {
+		right: 0.5rem;
 	}
 `;
 
 export const SearchInput = styled.input`
 	width: 100%;
-	padding: 0 1rem 0 2rem;
+	padding: 0 2rem 0;
 	height: 2.5rem;
 	border-radius: 0.25rem;
 	border: 1px solid ${({ theme }) => theme.colors.secondary};
