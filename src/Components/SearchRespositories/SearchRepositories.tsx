@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SelectInput } from "../Shared";
 import { SortInput } from "./SortInput";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { getRepositories } from "../../_api";
 
 export const SearchRepositories = () => {
 	const [searchReposState, searchReposDispatch] = React.useReducer(
@@ -27,12 +28,31 @@ export const SearchRepositories = () => {
 		searchReposInitialState,
 	);
 
+	React.useEffect(async () => {
+		if (searchReposState.searchTerm !== "") {
+			await searchRepositories();
+		}
+	}, [searchReposState.filterBy, searchReposState.sortBy]);
+
+	const searchRepositories = async () => {
+		const getReposInput: IGetRepositoriesInput = {
+			searchTerm: searchReposState.searchTerm,
+			filterBy: searchReposState.filterBy,
+			sortByValue: sortValues[searchReposState.sortBy],
+		};
+		await getRepositories(getReposInput).then((res) => {
+			// set results
+			console.log(res);
+		});
+	};
+
 	return (
 		<SearchRepositoriesContainer>
 			<h1>GitHub Repository Search</h1>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
+					searchRepositories();
 				}}
 			>
 				<SearchInputContainer>
