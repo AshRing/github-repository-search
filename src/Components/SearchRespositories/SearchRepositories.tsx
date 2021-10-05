@@ -2,12 +2,15 @@ import * as React from "react";
 
 import { CHANGE_SEARCH_TERM, searchReposInitialState, searchReposReducer } from "./reducer";
 import {
+	FilterSortContainer,
 	SearchInput,
 	SearchInputContainer,
 	SearchRepositoriesContainer,
 } from "./SearchRepositories.styles";
 
+import { FilterInput } from "./FilterInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SortInput } from "./SortInput";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export const SearchRepositories = () => {
@@ -37,6 +40,10 @@ export const SearchRepositories = () => {
 				<FilterInput
 					filterBy={searchReposState.filterBy}
 					onFilterChange={(selectedFilters: string[]) => console.log(selectedFilters)}
+				/>
+				<SortInput
+					sortBy={searchReposState.sortBy}
+					onSortChange={(selectedSort: string) => console.log(selectedSort)}
 				/>
 			</FilterSortContainer>
 		</SearchRepositoriesContainer>

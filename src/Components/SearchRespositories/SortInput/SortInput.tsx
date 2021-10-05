@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { SelectInput } from "../../../Components/Shared";
 import { sortInputs } from "./SortInput.bl";
 
 interface Props {
@@ -12,6 +13,12 @@ export const SortInput = ({ onSortChange, sortBy }: Props) => {
 
 	return (
 		<div>
+			<SelectInput
+				label="Sort"
+				selected={[sortBy]}
+				options={sortOptions}
+				handleChange={(selected: string[]) => onSortChange(selected[0])}
+			/>
 		</div>
 	);
 };
