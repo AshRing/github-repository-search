@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { FilterSortOption } from "../../../_types";
 import { SelectInput } from "../../../Components/Shared";
 import { sortInputs } from "./SortInput.bl";
 
@@ -9,15 +10,20 @@ interface Props {
 }
 
 export const SortInput = ({ onSortChange, sortBy }: Props) => {
-	const sortOptions: string[] = Object.keys(sortInputs).map((key: string) => sortInputs[key]);
+	const sortOptions: FilterSortOption[] = Object.keys(sortInputs).map((key: string) => ({
+		name: sortInputs[key],
+		value: sortInputs[key],
+	}));
 
 	return (
 		<div>
 			<SelectInput
 				label="Sort"
-				selected={[sortBy]}
+				selected={[
+					sortOptions.find((sortOption: FilterSortOption) => sortOption.value === sortBy),
+				]}
 				options={sortOptions}
-				handleChange={(selected: string[]) => onSortChange(selected[0])}
+				handleChange={(selected: FilterSortOption[]) => onSortChange(selected[0].value)}
 			/>
 		</div>
 	);

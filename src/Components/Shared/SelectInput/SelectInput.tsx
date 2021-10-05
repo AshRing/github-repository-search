@@ -10,21 +10,22 @@ import {
 } from "./SelectInput.styles";
 import { faArrowDown, faArrowUp, faCheckSquare, faSquare } from "@fortawesome/free-solid-svg-icons";
 
+import { FilterSortOption } from "../../../_types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useOnClickOutside from "use-onclickoutside";
 
 interface Props {
-	handleChange: (selected: string[]) => void;
+	handleChange: (selected: FilterSortOption[]) => void;
 	label: string;
 	multiselect?: boolean;
-	options: string[];
-	selected: string[];
+	options: FilterSortOption[];
+	selected: FilterSortOption[];
 }
 
 export const SelectInput = ({ handleChange, label, multiselect, options, selected }: Props) => {
 	const [dropdownOpen, toggleDropdown] = React.useState<boolean>(false);
 	const [multiselectSelectedOptions, setMultiselectSelectedOptions] =
-		React.useState<string[]>(selected);
+		React.useState<FilterSortOption[]>(selected);
 	const dropdownRef: React.RefObject<HTMLDivElement> = React.useRef();
 	useOnClickOutside(dropdownRef, () => handleClickOutside());
 
@@ -43,10 +44,10 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 		toggleDropdown(false);
 	};
 
-	const handleMultiselectOptionSelection = (multiselectSelectedOption: string) => {
+	const handleMultiselectOptionSelection = (multiselectSelectedOption: FilterSortOption) => {
 		if (multiselectSelectedOptions.includes(multiselectSelectedOption)) {
-			const optionRemoved: string[] = multiselectSelectedOptions.filter(
-				(selectedOption: string) => selectedOption !== multiselectSelectedOption,
+			const optionRemoved: FilterSortOption[] = multiselectSelectedOptions.filter(
+				(selectedOption: FilterSortOption) => selectedOption !== multiselectSelectedOption,
 			);
 			setMultiselectSelectedOptions(optionRemoved);
 		} else {
@@ -58,7 +59,7 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 	};
 
 	const renderOptions = () => {
-		return options.map((option: string, i: number) => {
+		return options.map((option: FilterSortOption, i: number) => {
 			if (multiselect) {
 				const optionSelected: boolean = multiselectSelectedOptions.includes(option);
 
