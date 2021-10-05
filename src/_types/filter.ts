@@ -1,4 +1,4 @@
-export interface FilterSortOption {
+export interface IFilterSortOption {
 	name: string;
-	value: string;
+	values: string[];
 }

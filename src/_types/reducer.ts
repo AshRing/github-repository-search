@@ -1,12 +1,15 @@
-import { FilterOption } from ".";
+import { IFilterSortOption } from ".";
 
-export interface searchReposState {
+export interface ISearchReposState {
 	searchTerm: string;
-	filterBy: FilterOption[];
+	filterBy: IFilterSortOption[];
 	sortBy: string;
 }
 
-export interface SearchReposReducerAction {
+export interface ISearchReposReducerAction {
 	type: string;
 	searchTerm?: string;
+	filterName?: string;
+	filterValues?: string[];
+	sortName?: string;
 }
