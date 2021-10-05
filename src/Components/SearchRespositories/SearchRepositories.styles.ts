@@ -1,8 +1,10 @@
+import { darken } from "polished";
 import styled from "styled-components";
 
 export const SearchRepositoriesContainer = styled.div`
 	width: 100%;
 	height: 100%;
+	position: relative;
 
 	& > h1 {
 		font-size: 1.5rem;
@@ -11,39 +13,17 @@ export const SearchRepositoriesContainer = styled.div`
 	}
 `;
 
-export const SearchInputContainer = styled.div`
-	position: relative;
-	width: 100%;
-	margin-bottom: 1rem;
+export const ScrollToTopButton = styled.button`
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+	color: #fff;
+	background: ${({ theme }) => theme.colors.secondary};
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
 
-	& > .fa-search {
-		position: absolute;
-		top: 50%;
-		left: 1rem;
-		transform: translate(-50%, -50%);
-		color: ${({ theme }) => theme.colors.secondary};
-	}
-`;
-
-export const SearchInput = styled.input`
-	width: 100%;
-	padding: 0 1rem 0 2rem;
-	height: 2.5rem;
-	border-radius: 0.25rem;
-	border: 1px solid ${({ theme }) => theme.colors.secondary};
-	outline: none;
-	transition: 0.2s ease border-color;
-
-	&:focus {
-		border-color: ${({ theme }) => theme.colors.primary};
-	}
-`;
-
-export const FilterSortContainer = styled.div`
-	display: flex;
-	column-gap: 1rem;
-
-	& > div {
-		width: 50%;
+	&:hover {
+		background: ${({ theme }) => darken(0.1, theme.colors.secondary)};
 	}
 `;
