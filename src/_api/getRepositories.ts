@@ -1,6 +1,6 @@
 import { IFilterSortOption, IGetRepositoriesInput, IRepositoryApiResult } from "../_types";
 
-import { filters } from "../Components/SearchRespositories/SearchRepositories.bl";
+import { filters } from "../Components/SearchRespositories/FilterSort";
 
 const buildQuery = (
 	searchTerm: string,

@@ -4,41 +4,32 @@ import {
 	ADD_FILTER,
 	CHANGE_SEARCH_TERM,
 	CHANGE_SORT,
-	searchReposInitialState,
-	searchReposReducer,
+	filterSortInitialState,
+	filterSortReducer,
 } from "./reducer";
-import {
-	FilterSortContainer,
-	SearchInput,
-	SearchInputContainer,
-	SearchRepositoriesContainer,
-} from "./SearchRepositories.styles";
-import { IFilterSortOption, IGetRepositoriesInput, IRepository } from "src/_types";
-import { filters, languageFilterOptions, sortValues } from "./SearchRepositories.bl";
+import { FilterSort, sortValues } from "./FilterSort";
+import { IFilterSortOption, IGetRepositoriesInput } from "src/_types";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SelectInput } from "../Shared";
-import { SortInput } from "./SortInput";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { SearchRepositoriesContainer } from "./SearchRepositories.styles";
 import { getRepositories } from "../../_api";
 
 export const SearchRepositories = () => {
-	const [searchReposState, searchReposDispatch] = React.useReducer(
-		searchReposReducer,
-		searchReposInitialState,
+	const [filterSortState, filterSortDispatch] = React.useReducer(
+		filterSortReducer,
+		filterSortInitialState,
 	);
 
 	React.useEffect(async () => {
-		if (searchReposState.searchTerm !== "") {
+		if (filterSortState.searchTerm !== "") {
 			await searchRepositories();
 		}
-	}, [searchReposState.filterBy, searchReposState.sortBy]);
+	}, [filterSortState.filterBy, filterSortState.sortBy]);
 
 	const searchRepositories = async () => {
 		const getReposInput: IGetRepositoriesInput = {
-			searchTerm: searchReposState.searchTerm,
-			filterBy: searchReposState.filterBy,
-			sortByValue: sortValues[searchReposState.sortBy],
+			searchTerm: filterSortState.searchTerm,
+			filterBy: filterSortState.filterBy,
+			sortByValue: sortValues[filterSortState.sortBy],
 		};
 		await getRepositories(getReposInput).then((res) => {
 			// set results
@@ -49,57 +40,25 @@ export const SearchRepositories = () => {
 	return (
 		<SearchRepositoriesContainer>
 			<h1>GitHub Repository Search</h1>
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					searchRepositories();
-				}}
-			>
-				<SearchInputContainer>
-					<FontAwesomeIcon icon={faSearch} />
-					<SearchInput
-						type="text"
-						placeholder="Search Repositories"
-						value={searchReposState.searchTerm}
-						onChange={(e: React.ChangeEvent) =>
-							searchReposDispatch({
-								type: CHANGE_SEARCH_TERM,
-								searchTerm: e.target.value,
-							})
-						}
-					/>
-				</SearchInputContainer>
-				<FilterSortContainer>
-					<div>
-						<SelectInput
-							multiselect
-							label="Language"
-							selected={
-								searchReposState.filterBy.find(
-									(filter: IFilterSortOption) => filter.name === filters.language,
-								)?.values || []
-							}
-							options={languageFilterOptions}
-							handleChange={(selected: string[]) =>
-								searchReposDispatch({
-									type: ADD_FILTER,
-									filterName: filters.language,
-									filterValues: selected,
-								})
-							}
-						/>
-					</div>
-					<SortInput
-						sortBy={searchReposState.sortBy}
-						onSortChange={(selectedSort: string) =>
-							searchReposDispatch({
-								type: CHANGE_SORT,
-								sortName: selectedSort,
-							})
-						}
-					/>
-				</FilterSortContainer>
-			</form>
+			<FilterSort
+				addFilter={(filterToAdd: IFilterSortOption) =>
+					filterSortDispatch({
+						type: ADD_FILTER,
+						filterName: filterToAdd.name,
+						filterValues: filterToAdd.values,
+					})
+				}
+				changeSearchTerm={(value: string) =>
+					filterSortDispatch({ type: CHANGE_SEARCH_TERM, searchTerm: value })
+				}
+				changeSort={(sortName: string) =>
+					filterSortDispatch({ type: CHANGE_SORT, sortName })
+				}
+				filterBy={filterSortState.filterBy}
+				searchRepositories={() => searchRepositories()}
+				searchTerm={filterSortState.searchTerm}
+				sortBy={filterSortState.sortBy}
+			/>
 		</SearchRepositoriesContainer>
 	);
 };

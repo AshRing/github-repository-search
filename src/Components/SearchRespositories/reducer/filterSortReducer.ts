@@ -1,21 +1,25 @@
-import { IFilterSortOption, ISearchReposReducerAction, ISearchReposState } from "../../../_types";
+import {
+	IFilterSortOption,
+	IFilterSortReducerAction,
+	IFilterSortReducerState,
+} from "../../../_types";
 
-import { sortInputs } from "../SearchRepositories.bl";
+import { sortInputs } from "../FilterSort";
 
 export const CHANGE_SEARCH_TERM = "CHANGE_SEARCH_TERM";
 export const ADD_FILTER = "ADD_FILTER";
 export const CHANGE_SORT = "CHANGE_SORT";
 
-export const searchReposInitialState: ISearchReposState = {
+export const filterSortInitialState: IFilterSortReducerState = {
 	searchTerm: "",
 	filterBy: [],
 	sortBy: sortInputs.bestMatch,
 };
 
-export const searchReposReducer = (
-	state = searchReposInitialState,
-	action: ISearchReposReducerAction,
-): ISearchReposState => {
+export const filterSortReducer = (
+	state = filterSortInitialState,
+	action: IFilterSortReducerAction,
+): IFilterSortReducerState => {
 	switch (action.type) {
 		case CHANGE_SEARCH_TERM:
 			return { ...state, searchTerm: action.searchTerm };

@@ -1,12 +1,12 @@
-import { IFilterSortOption } from ".";
+import { IFilterSortOption, IRepository } from ".";
 
-export interface ISearchReposState {
+export interface IFilterSortReducerState {
 	searchTerm: string;
 	filterBy: IFilterSortOption[];
 	sortBy: string;
 }
 
-export interface ISearchReposReducerAction {
+export interface IFilterSortReducerAction {
 	type: string;
 	searchTerm?: string;
 	filterName?: string;
