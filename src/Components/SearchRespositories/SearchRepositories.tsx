@@ -33,6 +33,12 @@ export const SearchRepositories = () => {
 					}
 				/>
 			</SearchInputContainer>
+			<FilterSortContainer>
+				<FilterInput
+					filterBy={searchReposState.filterBy}
+					onFilterChange={(selectedFilters: string[]) => console.log(selectedFilters)}
+				/>
+			</FilterSortContainer>
 		</SearchRepositoriesContainer>
 	);
 };
