@@ -1,0 +1,23 @@
+{
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"useBuiltIns": "entry",
+				"corejs": "3"
+			}
+		],
+		"@babel/preset-typescript",
+		"@babel/preset-react"
+	],
+	"plugins": [
+		[
+			"babel-plugin-styled-components",
+			{
+				"ssr": false
+			}
+		]
+	],
+	"ignore": ["node_modules"],
+	"exclude": ["node_modules"]
+}
