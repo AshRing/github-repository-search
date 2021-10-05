@@ -113,7 +113,7 @@ export const SearchRepositories = () => {
 			/>
 			{showScrollToTopBtn && (
 				<ScrollToTopButton onClick={() => window.scrollTo(0, 0)}>
-					<FontAwesomeIcon icon={faArrowUp} />
+					<FontAwesomeIcon icon={faArrowUp} /> Back to Top
 				</ScrollToTopButton>
 			)}
 		</SearchRepositoriesContainer>

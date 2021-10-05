@@ -58,6 +58,14 @@ export const SelectDropdown = styled.div<{ open: boolean }>`
 		font-size: 1.5rem;
 		margin-bottom: 2.5rem;
 	}
+
+	& .fa-times {
+		position: absolute;
+		top: 2rem;
+		right: 2rem;
+		color: ${({ theme }) => theme.colors.primary};
+		font-size: 2rem;
+	}
 `;
 
 export const SelectOption = styled.div<{ selected: boolean }>`
@@ -75,4 +83,10 @@ export const SelectOption = styled.div<{ selected: boolean }>`
 	& > span {
 		font-weight: ${({ selected }) => selected && "bold"};
 	}
+`;
+
+export const ClearButton = styled.button`
+	font-size: 1rem;
+	font-weight: bold;
+	margin: 1rem 0;
 `;

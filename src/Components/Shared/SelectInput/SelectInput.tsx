@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {
+	ClearButton,
 	DrowdownArrow,
 	SelectDropdown,
 	SelectInputContainer,
@@ -8,7 +9,13 @@ import {
 	SelectOption,
 	SelectedText,
 } from "./SelectInput.styles";
-import { faArrowDown, faArrowUp, faCheckSquare, faSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+	faArrowDown,
+	faArrowUp,
+	faCheckSquare,
+	faSquare,
+	faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useOnClickOutside from "use-onclickoutside";
@@ -93,8 +100,16 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 				)}
 			</DrowdownArrow>
 			<SelectDropdown open={dropdownOpen} ref={dropdownRef}>
+				<button type="button" onClick={() => toggleDropdown(false)}>
+					<FontAwesomeIcon icon={faTimes} />
+				</button>
 				<h1>{label}</h1>
 				{renderOptions()}
+				{selected.length > 0 && (
+					<ClearButton type="button" onClick={() => handleChange([])}>
+						Clear
+					</ClearButton>
+				)}
 			</SelectDropdown>
 		</SelectInputContainer>
 	);

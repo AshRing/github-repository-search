@@ -14,14 +14,18 @@ export const SearchRepositoriesContainer = styled.div`
 `;
 
 export const ScrollToTopButton = styled.button`
-	border-radius: 50%;
-	width: 3rem;
-	height: 3rem;
 	color: #fff;
 	background: ${({ theme }) => theme.colors.secondary};
+	border-radius: 0;
+	width: 100%;
+	height: 3rem;
 	position: fixed;
-	bottom: 1rem;
-	right: 1rem;
+	bottom: 0;
+	right: 0;
+
+	svg {
+		margin-right: 0.5rem;
+	}
 
 	&:hover {
 		background: ${({ theme }) => darken(0.1, theme.colors.secondary)};

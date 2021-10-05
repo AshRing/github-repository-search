@@ -13,7 +13,6 @@ export const ArrowContainer = styled.div`
 
 	button {
 		margin: 0.25rem;
-		background: none;
 	}
 
 	svg {

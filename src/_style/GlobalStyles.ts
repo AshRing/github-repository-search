@@ -28,9 +28,6 @@ export const GlobalStyles = createGlobalStyle`
       border-radius: .25rem;
       cursor: pointer;
       transition: .2s ease all;
-
-      &:hover {
-        box-shadow: 2px 2px 8px ${({ theme }) => theme.colors.tertiary};
-      }
+      background: none;
     }
 `;
