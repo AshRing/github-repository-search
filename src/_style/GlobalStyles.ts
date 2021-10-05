@@ -14,6 +14,12 @@ export const GlobalStyles = createGlobalStyle`
       font-size: 16px;
     }
 
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
     button {
       display: flex;
       justify-content: center;

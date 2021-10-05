@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const FilterSortContainer = styled.form`
+	margin-bottom: 2rem;
+`;
+
 export const SearchInputContainer = styled.div`
 	position: relative;
 	width: 100%;
@@ -28,7 +32,7 @@ export const SearchInput = styled.input`
 	}
 `;
 
-export const FilterSortContainer = styled.div`
+export const FilterSortGroup = styled.div`
 	display: flex;
 	column-gap: 1rem;
 

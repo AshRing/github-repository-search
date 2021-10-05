@@ -4,12 +4,16 @@ import {
 	ADD_FILTER,
 	CHANGE_SEARCH_TERM,
 	CHANGE_SORT,
+	GET_REPOS_SUCCESS,
 	filterSortInitialState,
 	filterSortReducer,
+	repoReducer,
+	repoReducerInitialState,
 } from "./reducer";
 import { FilterSort, sortValues } from "./FilterSort";
-import { IFilterSortOption, IGetRepositoriesInput } from "src/_types";
+import { IFilterSortOption, IGetRepositoriesInput } from "../../_types";
 
+import { RepoList } from "./RepoList";
 import { SearchRepositoriesContainer } from "./SearchRepositories.styles";
 import { getRepositories } from "../../_api";
 
@@ -18,6 +22,7 @@ export const SearchRepositories = () => {
 		filterSortReducer,
 		filterSortInitialState,
 	);
+	const [repoState, repoDispatch] = React.useReducer(repoReducer, repoReducerInitialState);
 
 	React.useEffect(async () => {
 		if (filterSortState.searchTerm !== "") {
@@ -32,8 +37,7 @@ export const SearchRepositories = () => {
 			sortByValue: sortValues[filterSortState.sortBy],
 		};
 		await getRepositories(getReposInput).then((res) => {
-			// set results
-			console.log(res);
+			repoDispatch({ type: GET_REPOS_SUCCESS, repos: res.items });
 		});
 	};
 
@@ -58,6 +62,11 @@ export const SearchRepositories = () => {
 				searchRepositories={() => searchRepositories()}
 				searchTerm={filterSortState.searchTerm}
 				sortBy={filterSortState.sortBy}
+			/>
+			<RepoList
+				repos={repoState.repos}
+				pageNum={repoState.pageNum}
+				changePage={(direction: number) => console.log(direction)}
 			/>
 		</SearchRepositoriesContainer>
 	);

@@ -1,6 +1,11 @@
 import * as React from "react";
 
-import { FilterSortContainer, SearchInput, SearchInputContainer } from "./FilterSort.styles";
+import {
+	FilterSortContainer,
+	FilterSortGroup,
+	SearchInput,
+	SearchInputContainer,
+} from "./FilterSort.styles";
 import { filters, languageFilterOptions, sortInputs } from ".";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,7 +33,7 @@ export const FilterSort = ({
 	sortBy,
 }: Props) => {
 	return (
-		<form
+		<FilterSortContainer
 			onSubmit={(e) => {
 				e.preventDefault();
 				searchRepositories();
@@ -43,7 +48,7 @@ export const FilterSort = ({
 					onChange={(e: React.ChangeEvent) => changeSearchTerm(e.target.value)}
 				/>
 			</SearchInputContainer>
-			<FilterSortContainer>
+			<FilterSortGroup>
 				<div>
 					<SelectInput
 						multiselect
@@ -67,7 +72,7 @@ export const FilterSort = ({
 						handleChange={(selected: string[]) => changeSort(selected[0])}
 					/>
 				</div>
-			</FilterSortContainer>
-		</form>
+			</FilterSortGroup>
+		</FilterSortContainer>
 	);
 };
