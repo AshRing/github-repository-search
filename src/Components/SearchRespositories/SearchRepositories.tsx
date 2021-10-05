@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { CHANGE_SEARCH_TERM, searchReposInitialState, searchReposReducer } from "./reducer";
 import {
 	SearchInput,
 	SearchInputContainer,
@@ -10,6 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export const SearchRepositories = () => {
+	const [searchReposState, searchReposDispatch] = React.useReducer(
+		searchReposReducer,
+		searchReposInitialState,
+	);
 
 	return (
 		<SearchRepositoriesContainer>
@@ -19,7 +24,11 @@ export const SearchRepositories = () => {
 				<SearchInput
 					type="text"
 					placeholder="Search Repositories"
+					value={searchReposState.searchTerm}
 					onChange={(e: React.ChangeEvent) =>
+						searchReposDispatch({
+							type: CHANGE_SEARCH_TERM,
+							searchTerm: e.target.value,
 						})
 					}
 				/>

@@ -39,3 +39,11 @@ export const SearchInput = styled.input`
 	}
 `;
 
+export const FilterSortContainer = styled.div`
+	display: flex;
+	column-gap: 1rem;
+
+	& > div {
+		width: 50%;
+	}
+`;
