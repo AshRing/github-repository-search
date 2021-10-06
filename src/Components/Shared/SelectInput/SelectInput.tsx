@@ -105,7 +105,7 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 				</button>
 				<h1>{label}</h1>
 				{renderOptions()}
-				{selected.length > 0 && (
+				{selected.length > 0 && multiselect && (
 					<ClearButton type="button" onClick={() => handleChange([])}>
 						Clear
 					</ClearButton>

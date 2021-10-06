@@ -11,15 +11,16 @@ import {
 	filterSortReducer,
 	repoReducer,
 	repoReducerInitialState,
-} from "./reducer";
+} from "./reducers";
 import { FilterSort, sortValues } from "./FilterSort";
-import { IFilterSortOption, IGetRepositoriesInput } from "../../_types";
+import { IFilterSortOption, IGetRepositoriesInput, ILocationState } from "../../_types";
 import { ScrollToTopButton, SearchRepositoriesContainer } from "./SearchRepositories.styles";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RepoList } from "./RepoList";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { getRepositories } from "../../_api";
+import { useLocation } from "react-router-dom";
 
 export const SearchRepositories = () => {
 	const [filterSortState, filterSortDispatch] = React.useReducer(
@@ -29,6 +30,46 @@ export const SearchRepositories = () => {
 	const [repoState, repoDispatch] = React.useReducer(repoReducer, repoReducerInitialState);
 	const [showScrollToTopBtn, toggleScrollToTopBtn] = React.useState<boolean>(false);
 	const filterSortRef: React.RefObject<HTMLDivElement> = React.useRef();
+	const { state }: { state: ILocationState } = useLocation();
+
+	React.useEffect(async () => {
+		// apply previous filters
+		if (state) {
+			if (state.pageNum !== repoState.pageNum) {
+				repoDispatch({ type: CHANGE_PAGE, pageNum: state.pageNum });
+			}
+
+			if (state.filterSortState?.filterBy.length > 0) {
+				state.filterSortState.filterBy.forEach((filter: IFilterSortOption) =>
+					filterSortDispatch({
+						type: ADD_FILTER,
+						filterName: filter.name,
+						filterValues: filter.values,
+					}),
+				);
+			}
+
+			if (state.filterSortState?.sortBy !== filterSortState.sortBy) {
+				filterSortDispatch({
+					type: CHANGE_SORT,
+					sortName: state.filterSortState.sortBy,
+				});
+			}
+
+			if (state.filterSortState?.searchTerm !== "") {
+				filterSortDispatch({
+					type: CHANGE_SEARCH_TERM,
+					searchTerm: state.filterSortState.searchTerm,
+				});
+			}
+			await searchRepositories({
+				searchTerm: state.filterSortState.searchTerm,
+				filterBy: state.filterSortState.filterBy,
+				sortByValue: state.filterSortState.sortBy,
+				pageNum: state.pageNum,
+			});
+		}
+	}, []);
 
 	React.useEffect(() => {
 		const observerOptions = {
@@ -63,12 +104,12 @@ export const SearchRepositories = () => {
 		}
 	}, [filterSortState.filterBy, filterSortState.sortBy, repoState.pageNum]);
 
-	const searchRepositories = async () => {
+	const searchRepositories = async (input?: IGetRepositoriesInput) => {
 		const getReposInput: IGetRepositoriesInput = {
-			searchTerm: filterSortState.searchTerm,
-			filterBy: filterSortState.filterBy,
-			sortByValue: sortValues[filterSortState.sortBy],
-			pageNum: repoState.pageNum,
+			searchTerm: input?.searchTerm || filterSortState.searchTerm,
+			filterBy: input?.filterBy || filterSortState.filterBy,
+			sortByValue: input?.sortByValue || sortValues[filterSortState.sortBy],
+			pageNum: input?.pageNum || repoState.pageNum,
 		};
 		await getRepositories(getReposInput).then((res) => {
 			const itemsPerPage = 30;
@@ -106,10 +147,11 @@ export const SearchRepositories = () => {
 				/>
 			</div>
 			<RepoList
-				repos={repoState.repos}
-				pageNum={repoState.pageNum}
-				totalPages={repoState.totalPages}
 				changePage={(pageNum: number) => repoDispatch({ type: CHANGE_PAGE, pageNum })}
+				filterSortState={filterSortState}
+				pageNum={repoState.pageNum}
+				repos={repoState.repos}
+				totalPages={repoState.totalPages}
 			/>
 			{showScrollToTopBtn && (
 				<ScrollToTopButton onClick={() => window.scrollTo(0, 0)}>
