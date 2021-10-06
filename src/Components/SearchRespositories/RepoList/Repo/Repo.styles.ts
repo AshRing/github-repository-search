@@ -1,3 +1,4 @@
+import { mediaQueries } from "../../../../_style";
 import { rgba } from "polished";
 import styled from "styled-components";
 
@@ -9,6 +10,10 @@ export const RepoContainer = styled.div`
 	border-radius: 0.25rem;
 	margin-bottom: 1rem;
 	overflow: hidden;
+
+	${mediaQueries.desktop} {
+		padding: 1rem 1.5rem;
+	}
 `;
 
 export const RepoFlexContainer = styled.div`

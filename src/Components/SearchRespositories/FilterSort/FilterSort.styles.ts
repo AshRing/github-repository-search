@@ -1,3 +1,4 @@
+import { mediaQueries } from "../../../_style";
 import styled from "styled-components";
 
 export const FilterSortContainer = styled.form`
@@ -45,7 +46,16 @@ export const FilterSortGroup = styled.div`
 	flex-direction: column;
 	row-gap: 1rem;
 
+	${mediaQueries.tabletPortrait} {
+		flex-direction: row;
+		column-gap: 1rem;
+	}
+
 	& > div {
 		width: 100%;
+
+		${mediaQueries.tabletPortrait} {
+			width: 50%;
+		}
 	}
 `;

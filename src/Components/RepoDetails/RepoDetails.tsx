@@ -26,12 +26,12 @@ export const RepoDetails = () => {
 
 	return (
 		<RepoDetailsContainer>
-			<Link to={{ pathname: "/", state: { filterSortState, pageNum } }}>
-				<BackButton>
-					<FontAwesomeIcon icon={faTimes} />
-				</BackButton>
-			</Link>
 			<RepoDetailsInnerContainer>
+				<BackButton>
+					<Link to={{ pathname: "/", state: { filterSortState, pageNum } }}>
+						<FontAwesomeIcon icon={faTimes} />
+					</Link>
+				</BackButton>
 				<div>
 					<RepoTitle>
 						<AvatarContainer>

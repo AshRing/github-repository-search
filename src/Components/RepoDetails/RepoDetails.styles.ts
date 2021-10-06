@@ -1,5 +1,6 @@
 import { lighten, rgba } from "polished";
 
+import { mediaQueries } from "../../_style";
 import styled from "styled-components";
 
 export const RepoDetailsContainer = styled.div`
@@ -17,6 +18,11 @@ export const BackButton = styled.button`
 	top: 1rem;
 	right: 2rem;
 
+	${mediaQueries.tabletLandscape} {
+		right: 1rem;
+		top: 1.5rem;
+	}
+
 	svg {
 		color: ${({ theme }) => theme.colors.primary};
 		font-size: 2rem;
@@ -33,6 +39,13 @@ export const RepoDetailsInnerContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	max-width: 56.25rem;
+	max-height: 40rem;
+	margin: 0 auto;
+
+	${mediaQueries.tabletLandscape} {
+		position: relative;
+	}
 `;
 
 export const RepoTitle = styled.div`
@@ -80,7 +93,10 @@ export const RepoCountsContainer = styled.div`
 
 		& > h3 {
 			width: 50%;
-			margin-right: 0.5rem;
+
+			${mediaQueries.tabletPortrait} {
+				width: 20%;
+			}
 		}
 	}
 `;
@@ -95,6 +111,16 @@ export const RepoDatesContainer = styled.div`
 
 export const RepoDetailsLinks = styled.div`
 	width: 100%;
+
+	${mediaQueries.tabletPortrait} {
+		display: flex;
+	}
+
+	& > a {
+		${mediaQueries.tabletPortrait} {
+			flex: 1;
+		}
+	}
 
 	a > div {
 		font-size: 1.25rem;

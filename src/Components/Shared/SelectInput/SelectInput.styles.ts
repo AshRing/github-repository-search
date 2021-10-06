@@ -1,8 +1,12 @@
+import { mediaQueries } from "../../../_style";
+import { rgba } from "polished";
 import styled from "styled-components";
+
+const inputHeight = "2.5rem";
 
 export const SelectInputContainer = styled.div<{ inputActive: boolean }>`
 	position: relative;
-	height: 2.5rem;
+	height: ${inputHeight};
 	border-radius: 0.25rem;
 	padding: 0 2rem 0 1rem;
 	transition: 0.2s ease border;
@@ -59,9 +63,33 @@ export const SelectDropdown = styled.div<{ open: boolean }>`
 	transition: 0.3s ease-out all;
 	z-index: 5;
 
+	${mediaQueries.tabletPortrait} {
+		width: 50%;
+	}
+
+	${mediaQueries.desktop} {
+		position: absolute;
+		bottom: auto;
+		left: 0;
+		width: 100%;
+		top: calc(${inputHeight} + 0.25rem);
+		opacity: ${({ open }) => (open ? "1" : "0")};
+		transform-origin: top;
+		transform: scaleY(${({ open }) => (open ? "1" : "0")});
+		border-radius: 0.25rem;
+		background: #fff;
+		border: 1px solid ${({ theme }) => theme.colors.secondary};
+		box-shadow: 2px 2px 2px ${({ theme }) => rgba(theme.colors.primary, 0.3)};
+		padding: 1rem 1.5rem;
+	}
+
 	& > h1 {
 		font-size: 1.5rem;
 		margin-bottom: 2.5rem;
+
+		${mediaQueries.desktop} {
+			display: none;
+		}
 	}
 
 	& .fa-times {
@@ -70,6 +98,10 @@ export const SelectDropdown = styled.div<{ open: boolean }>`
 		right: 2rem;
 		color: ${({ theme }) => theme.colors.primary};
 		font-size: 2rem;
+
+		${mediaQueries.desktop} {
+			display: none;
+		}
 	}
 `;
 
@@ -93,5 +125,5 @@ export const SelectOption = styled.div<{ selected: boolean }>`
 export const ClearButton = styled.button`
 	font-size: 1rem;
 	font-weight: bold;
-	margin: 1rem 0;
+	margin: 1rem 0 0;
 `;

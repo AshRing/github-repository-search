@@ -30,12 +30,12 @@ interface Props {
 
 export const SelectInput = ({ handleChange, label, multiselect, options, selected }: Props) => {
 	const [dropdownOpen, toggleDropdown] = React.useState<boolean>(false);
+	const containerRef: React.RefObject<HTMLDivElement> = React.useRef();
 	const dropdownRef: React.RefObject<HTMLDivElement> = React.useRef();
-	useOnClickOutside(dropdownRef, () => handleClickOutside());
-
-	const handleClickOutside = () => {
-		toggleDropdown(false);
-	};
+	useOnClickOutside(
+		dropdownRef,
+		(e) => !containerRef.current.contains(e.target) && toggleDropdown(false),
+	);
 
 	const handleMultiselectOptionSelection = (multiselectSelectedOption: string) => {
 		if (selected.includes(multiselectSelectedOption)) {
@@ -87,8 +87,11 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 
 	return (
 		<SelectInputContainer
+			ref={containerRef}
 			inputActive={selected.length || dropdownOpen}
-			onClick={() => (!dropdownOpen ? toggleDropdown(true) : undefined)}
+			onClick={(e) =>
+				!dropdownRef.current.contains(e.target) ? toggleDropdown(!dropdownOpen) : undefined
+			}
 		>
 			<SelectLabel shrinkLabel={selected.length}>{label}</SelectLabel>
 			<SelectedText>{selected.join(", ")}</SelectedText>
