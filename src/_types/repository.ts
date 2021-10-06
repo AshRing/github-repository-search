@@ -1,20 +1,20 @@
 import { IFilterSortOption } from "./filter";
 
 export interface IRepository {
-	id: string;
-	name: string;
-	full_name: string;
-	owner: IRepositoryOwner;
-	private: boolean;
-	html_url: string;
-	description: string;
 	created_at: string;
-	updated_at: string;
-	stargazers_count: number;
-	watchers_count: number;
+	description: string;
 	forks_count: number;
-	open_issues_count: number;
+	full_name: string;
+	homepage: string;
+	html_url: string;
+	id: string;
 	language: string;
+	name: string;
+	open_issues_count: number;
+	owner: IRepositoryOwner;
+	stargazers_count: number;
+	updated_at: string;
+	watchers_count: number;
 }
 
 export interface IRepositoryOwner {

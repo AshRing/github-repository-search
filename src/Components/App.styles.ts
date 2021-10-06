@@ -1,5 +1,3 @@
 import styled from "styled-components";
 
-export const AppWrapper = styled.div`
-	padding: 2rem 2rem 3rem;
-`;
+export const AppWrapper = styled.div``;

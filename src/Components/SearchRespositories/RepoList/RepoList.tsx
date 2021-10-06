@@ -17,7 +17,7 @@ export const RepoList = ({ changePage, pageNum, repos, totalPages }: Props) => {
 	return (
 		<RepoListContainer>
 			{repos.map((repo: IRepository) => (
-				<Link to={`/${repo.name}`} key={repo.id}>
+				<Link to={{ pathname: `/${repo.name}`, state: repo }} key={repo.id}>
 					<Repo repoInfo={repo} />
 				</Link>
 			))}

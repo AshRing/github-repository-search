@@ -30,4 +30,19 @@ export const GlobalStyles = createGlobalStyle`
       transition: .2s ease all;
       background: none;
     }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: bold;
+    }
 `;

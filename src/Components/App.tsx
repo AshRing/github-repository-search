@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router";
 
 import { AppWrapper } from "./App.styles";
 import { BrowserRouter } from "react-router-dom";
+import { RepoDetails } from "./RepoDetails";
 import { SearchRepositories } from "./SearchRespositories";
 
 const App = () => {
@@ -14,7 +15,9 @@ const App = () => {
 					<Route exact path="/">
 						<SearchRepositories />
 					</Route>
-					<Route path="/:id"></Route>
+					<Route path="/:id">
+						<RepoDetails />
+					</Route>
 				</Switch>
 			</AppWrapper>
 		</BrowserRouter>
