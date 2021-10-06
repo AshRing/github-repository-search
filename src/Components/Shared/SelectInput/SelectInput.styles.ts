@@ -9,6 +9,7 @@ export const SelectInputContainer = styled.div<{ inputActive: boolean }>`
 	display: flex;
 	align-items: center;
 	cursor: pointer;
+	background: #fff;
 	border: 1px solid
 		${({ inputActive, theme }) =>
 			!inputActive ? theme.colors.secondary : theme.colors.primary};
@@ -24,6 +25,10 @@ export const SelectLabel = styled.span<{ shrinkLabel: boolean }>`
 	padding: ${({ shrinkLabel }) => shrinkLabel && ".2rem"};
 	color: ${({ theme }) => theme.colors.primary};
 	background-color: #fff;
+	background: ${({ shrinkLabel, theme }) =>
+		shrinkLabel
+			? `linear-gradient(to bottom, ${theme.colors.tertiary} 50%, #fff 50%)`
+			: "#fff"};
 `;
 
 export const SelectedText = styled.span`

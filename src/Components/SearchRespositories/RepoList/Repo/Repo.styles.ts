@@ -1,10 +1,14 @@
+import { rgba } from "polished";
 import styled from "styled-components";
 
 export const RepoContainer = styled.div`
 	padding: 0.5rem 1rem;
 	width: 100%;
-	border: 1px solid ${({ theme }) => theme.colors.secondary};
+	background: #fff;
+	box-shadow: 2px 2px 2px ${({ theme }) => rgba(theme.colors.primary, 0.3)};
+	border-radius: 0.25rem;
 	margin-bottom: 1rem;
+	overflow: hidden;
 `;
 
 export const RepoFlexContainer = styled.div`

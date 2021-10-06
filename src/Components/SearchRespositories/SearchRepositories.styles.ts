@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 export const SearchRepositoriesContainer = styled.div`
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	position: relative;
 	padding: 2rem 2rem 3rem;
+	background: ${({ theme }) => theme.colors.tertiary};
 
 	& > h1 {
 		font-size: 1.5rem;

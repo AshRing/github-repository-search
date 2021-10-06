@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const RepoDetailsContainer = styled.div`
 	width: 100%;
 	height: 100vh;
-	background: ${({ theme }) => theme.colors.secondary};
+	background: ${({ theme }) => theme.colors.tertiary};
 	padding: 2rem;
 	display: flex;
 	align-items: center;
@@ -29,7 +29,7 @@ export const RepoDetailsInnerContainer = styled.div`
 	border-radius: 0.5rem;
 	position: relative;
 	background: #fff;
-	box-shadow: 2px 2px 12px ${({ theme }) => rgba(theme.colors.primary, 0.3)};
+	box-shadow: 2px 2px 2px ${({ theme }) => rgba(theme.colors.primary, 0.3)};
 	overflow: hidden;
 `;
 
@@ -37,7 +37,7 @@ export const RepoTitle = styled.div`
 	margin-bottom: 1rem;
 	display: flex;
 	align-items: center;
-	background: ${({ theme }) => theme.colors.tertiary};
+	background: ${({ theme }) => theme.colors.secondary};
 	padding: 1rem;
 
 	& > h1 {
@@ -109,10 +109,10 @@ export const RepoDetailsLinks = styled.div`
 	}
 
 	a#visitHomepageLink > div {
-		background: ${({ theme }) => lighten(0.05, theme.colors.tertiary)};
+		background: ${({ theme }) => lighten(0.05, theme.colors.secondary)};
 	}
 
 	a#visitGithubLink > div {
-		background: ${({ theme }) => theme.colors.tertiary};
+		background: ${({ theme }) => theme.colors.secondary};
 	}
 `;
