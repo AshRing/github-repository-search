@@ -1,17 +1,18 @@
+import { AppWrapper } from "../App.styles";
 import { darken } from "polished";
 import styled from "styled-components";
 
 export const SearchRepositoriesContainer = styled.div`
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
+	height: 100%;
 	position: relative;
 	padding: 2rem 2rem 3rem;
 	background: ${({ theme }) => theme.colors.tertiary};
 
-	& > h1 {
+	${AppWrapper} > h1 {
 		font-size: 1.5rem;
 		margin-bottom: 2rem;
-		text-align: center;
 	}
 `;
 

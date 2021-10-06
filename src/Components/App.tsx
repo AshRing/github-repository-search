@@ -10,16 +10,14 @@ import { SearchRepositories } from "./SearchRespositories";
 const App = () => {
 	return (
 		<BrowserRouter>
-			<AppWrapper>
-				<Switch>
-					<Route exact path="/">
-						<SearchRepositories />
-					</Route>
-					<Route path="/:id">
-						<RepoDetails />
-					</Route>
-				</Switch>
-			</AppWrapper>
+			<Switch>
+				<Route exact path="/">
+					<SearchRepositories />
+				</Route>
+				<Route path="/:id">
+					<RepoDetails />
+				</Route>
+			</Switch>
 		</BrowserRouter>
 	);
 };

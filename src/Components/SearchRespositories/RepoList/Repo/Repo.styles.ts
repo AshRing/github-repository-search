@@ -19,6 +19,7 @@ export const RepoFlexContainer = styled.div`
 
 export const RepoName = styled.h2`
 	color: ${({ theme }) => theme.colors.primary};
+	word-break: break-word;
 `;
 
 export const RepoLanguage = styled.span`

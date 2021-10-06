@@ -16,6 +16,7 @@ import { FilterSort, sortValues } from "./FilterSort";
 import { IFilterSortOption, IGetRepositoriesInput, ILocationState } from "../../_types";
 import { ScrollToTopButton, SearchRepositoriesContainer } from "./SearchRepositories.styles";
 
+import { AppWrapper } from "../App.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RepoList } from "./RepoList";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
@@ -124,40 +125,42 @@ export const SearchRepositories = () => {
 
 	return (
 		<SearchRepositoriesContainer>
-			<h1>GitHub Repository Search</h1>
-			<div ref={filterSortRef}>
-				<FilterSort
-					addFilter={(filterToAdd: IFilterSortOption) =>
-						filterSortDispatch({
-							type: ADD_FILTER,
-							filterName: filterToAdd.name,
-							filterValues: filterToAdd.values,
-						})
-					}
-					changeSearchTerm={(value: string) =>
-						filterSortDispatch({ type: CHANGE_SEARCH_TERM, searchTerm: value })
-					}
-					changeSort={(sortName: string) =>
-						filterSortDispatch({ type: CHANGE_SORT, sortName })
-					}
-					filterBy={filterSortState.filterBy}
-					searchRepositories={() => searchRepositories()}
-					searchTerm={filterSortState.searchTerm}
-					sortBy={filterSortState.sortBy}
+			<AppWrapper>
+				<h1>GitHub Repository Search</h1>
+				<div ref={filterSortRef}>
+					<FilterSort
+						addFilter={(filterToAdd: IFilterSortOption) =>
+							filterSortDispatch({
+								type: ADD_FILTER,
+								filterName: filterToAdd.name,
+								filterValues: filterToAdd.values,
+							})
+						}
+						changeSearchTerm={(value: string) =>
+							filterSortDispatch({ type: CHANGE_SEARCH_TERM, searchTerm: value })
+						}
+						changeSort={(sortName: string) =>
+							filterSortDispatch({ type: CHANGE_SORT, sortName })
+						}
+						filterBy={filterSortState.filterBy}
+						searchRepositories={() => searchRepositories()}
+						searchTerm={filterSortState.searchTerm}
+						sortBy={filterSortState.sortBy}
+					/>
+				</div>
+				<RepoList
+					changePage={(pageNum: number) => repoDispatch({ type: CHANGE_PAGE, pageNum })}
+					filterSortState={filterSortState}
+					pageNum={repoState.pageNum}
+					repos={repoState.repos}
+					totalPages={repoState.totalPages}
 				/>
-			</div>
-			<RepoList
-				changePage={(pageNum: number) => repoDispatch({ type: CHANGE_PAGE, pageNum })}
-				filterSortState={filterSortState}
-				pageNum={repoState.pageNum}
-				repos={repoState.repos}
-				totalPages={repoState.totalPages}
-			/>
-			{showScrollToTopBtn && (
-				<ScrollToTopButton onClick={() => window.scrollTo(0, 0)}>
-					<FontAwesomeIcon icon={faArrowUp} /> Back to Top
-				</ScrollToTopButton>
-			)}
+				{showScrollToTopBtn && (
+					<ScrollToTopButton onClick={() => window.scrollTo(0, 0)}>
+						<FontAwesomeIcon icon={faArrowUp} /> Back to Top
+					</ScrollToTopButton>
+				)}
+			</AppWrapper>
 		</SearchRepositoriesContainer>
 	);
 };

@@ -77,7 +77,7 @@ export const SelectOption = styled.div<{ selected: boolean }>`
 	display: flex;
 
 	&:not(:last-child) {
-		margin-bottom: 1rem;
+		margin-bottom: 0.5rem;
 	}
 
 	& > svg {

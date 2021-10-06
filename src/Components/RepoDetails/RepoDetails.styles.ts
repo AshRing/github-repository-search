@@ -14,7 +14,7 @@ export const RepoDetailsContainer = styled.div`
 
 export const BackButton = styled.button`
 	position: absolute;
-	top: 2rem;
+	top: 1rem;
 	right: 2rem;
 
 	svg {
@@ -25,16 +25,17 @@ export const BackButton = styled.button`
 
 export const RepoDetailsInnerContainer = styled.div`
 	width: 100%;
-	height: 80%;
+	height: 90%;
 	border-radius: 0.5rem;
-	position: relative;
 	background: #fff;
 	box-shadow: 2px 2px 2px ${({ theme }) => rgba(theme.colors.primary, 0.3)};
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 `;
 
 export const RepoTitle = styled.div`
-	margin-bottom: 1rem;
 	display: flex;
 	align-items: center;
 	background: ${({ theme }) => theme.colors.secondary};
@@ -62,7 +63,8 @@ export const AvatarContainer = styled.div`
 `;
 
 export const RepoDetailsBody = styled.div`
-	padding: 0 1rem;
+	padding: 1rem;
+	overflow-y: auto;
 `;
 
 export const RepoCountsContainer = styled.div`
@@ -92,10 +94,6 @@ export const RepoDatesContainer = styled.div`
 `;
 
 export const RepoDetailsLinks = styled.div`
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	width: 100%;
 
 	a > div {

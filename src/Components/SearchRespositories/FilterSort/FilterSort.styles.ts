@@ -42,9 +42,10 @@ export const SearchInput = styled.input`
 
 export const FilterSortGroup = styled.div`
 	display: flex;
-	column-gap: 1rem;
+	flex-direction: column;
+	row-gap: 1rem;
 
 	& > div {
-		width: 50%;
+		width: 100%;
 	}
 `;
