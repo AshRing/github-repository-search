@@ -1,5 +1,6 @@
 import { AppWrapper } from "../App.styles";
 import { darken } from "polished";
+import { mediaQueries } from "../../_style";
 import styled from "styled-components";
 
 export const SearchRepositoriesContainer = styled.div`
@@ -11,8 +12,15 @@ export const SearchRepositoriesContainer = styled.div`
 	background: ${({ theme }) => theme.colors.tertiary};
 
 	${AppWrapper} > h1 {
-		font-size: 1.5rem;
 		margin-bottom: 2rem;
+
+		${mediaQueries.desktop} {
+			margin: 1rem 0 3rem;
+		}
+	}
+
+	${mediaQueries.desktop} {
+		padding-bottom: 2rem;
 	}
 `;
 
@@ -26,8 +34,25 @@ export const ScrollToTopButton = styled.button`
 	bottom: 0;
 	right: 0;
 
+	${mediaQueries.desktop} {
+		width: 3rem;
+		bottom: 2rem;
+		right: 2rem;
+		border-radius: 50%;
+	}
+
 	svg {
 		margin-right: 0.5rem;
+
+		${mediaQueries.desktop} {
+			margin-right: 0;
+		}
+	}
+
+	span {
+		${mediaQueries.desktop} {
+			display: none;
+		}
 	}
 
 	&:hover {

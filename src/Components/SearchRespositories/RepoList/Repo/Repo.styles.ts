@@ -13,6 +13,7 @@ export const RepoContainer = styled.div`
 
 	${mediaQueries.desktop} {
 		padding: 1rem 1.5rem;
+		margin-bottom: 1.5rem;
 	}
 `;
 

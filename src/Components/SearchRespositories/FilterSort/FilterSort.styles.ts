@@ -3,12 +3,20 @@ import styled from "styled-components";
 
 export const FilterSortContainer = styled.form`
 	margin-bottom: 2rem;
+
+	${mediaQueries.desktop} {
+		margin-bottom: 3rem;
+	}
 `;
 
 export const SearchInputContainer = styled.div`
 	position: relative;
 	width: 100%;
 	margin-bottom: 1rem;
+
+	${mediaQueries.desktop} {
+		margin-bottom: 1.5rem;
+	}
 
 	& > .fa-search,
 	& .fa-times {
