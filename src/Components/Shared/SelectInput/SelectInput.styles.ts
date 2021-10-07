@@ -50,6 +50,20 @@ export const DrowdownArrow = styled.div`
 	& > svg {
 		color: ${({ theme }) => theme.colors.secondary};
 	}
+
+	.largeScreen {
+		display: none;
+
+		${mediaQueries.desktop} {
+			display: initial;
+		}
+	}
+
+	.smallScreen {
+		${mediaQueries.desktop} {
+			display: none;
+		}
+	}
 `;
 
 export const SelectDropdown = styled.div<{ open: boolean }>`

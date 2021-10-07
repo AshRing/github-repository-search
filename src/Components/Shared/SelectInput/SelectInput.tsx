@@ -11,6 +11,8 @@ import {
 } from "./SelectInput.styles";
 import {
 	faArrowDown,
+	faArrowLeft,
+	faArrowRight,
 	faArrowUp,
 	faCheckSquare,
 	faSquare,
@@ -97,9 +99,15 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 			<SelectedText>{selected.join(", ")}</SelectedText>
 			<DrowdownArrow>
 				{dropdownOpen ? (
-					<FontAwesomeIcon icon={faArrowUp} />
+					<>
+						<FontAwesomeIcon icon={faArrowUp} className="largeScreen" />
+						<FontAwesomeIcon icon={faArrowRight} className="smallScreen" />
+					</>
 				) : (
-					<FontAwesomeIcon icon={faArrowDown} />
+					<>
+						<FontAwesomeIcon icon={faArrowDown} className="largeScreen" />
+						<FontAwesomeIcon icon={faArrowLeft} className="smallScreen" />
+					</>
 				)}
 			</DrowdownArrow>
 			<SelectDropdown open={dropdownOpen} ref={dropdownRef}>
