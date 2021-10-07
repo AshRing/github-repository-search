@@ -9,3 +9,8 @@ export const RepoListContainer = styled.div`
 		padding-top: 3rem;
 	}
 `;
+
+export const StatusText = styled.span`
+	font-size: 1.25rem;
+	font-style: italic;
+`;

@@ -6,6 +6,7 @@ import {
 	CHANGE_SEARCH_TERM,
 	CHANGE_SORT,
 	GET_REPOS_SUCCESS,
+	LOADING,
 	RESET,
 	UPDATE_FROM_QUERY,
 	filterSortInitialState,
@@ -37,7 +38,6 @@ export const SearchRepositories = () => {
 	const history = useHistory();
 	const location = useLocation();
 	const queryParams = useQuery();
-	console.log(queryParams.toString());
 
 	React.useEffect(async () => {
 		// apply values from query params
@@ -52,12 +52,14 @@ export const SearchRepositories = () => {
 				filters: filtersInQuery,
 				searchTerm: queryParams.get("searchTerm"),
 			});
-			await searchRepositories({
-				searchTerm: queryParams.get("searchTerm"),
-				filterBy: filtersInQuery,
-				sortByValue: queryParams.get("sortBy"),
-				pageNum: parseInt(queryParams.get("pageNum")),
-			});
+			if (queryParams.has("searchTerm")) {
+				await searchRepositories({
+					searchTerm: queryParams.get("searchTerm"),
+					filterBy: filtersInQuery,
+					sortByValue: queryParams.get("sortBy"),
+					pageNum: parseInt(queryParams.get("pageNum")),
+				});
+			}
 		}
 	}, []);
 
@@ -102,6 +104,10 @@ export const SearchRepositories = () => {
 	}, [filterSortState.filterBy, filterSortState.sortBy, repoState.pageNum]);
 
 	const searchRepositories = async (input?: IGetRepositoriesInput) => {
+		repoDispatch({
+			type: LOADING,
+			isLoading: true,
+		});
 		const getReposInput: IGetRepositoriesInput = {
 			searchTerm: input?.searchTerm || filterSortState.searchTerm,
 			filterBy: input?.filterBy || filterSortState.filterBy,
@@ -175,6 +181,7 @@ export const SearchRepositories = () => {
 					filterSortState={filterSortState}
 					pageNum={repoState.pageNum}
 					repos={repoState.repos}
+					reposLoading={repoState.loading}
 					totalPages={repoState.totalPages}
 				/>
 				{showScrollToTopBtn && (
