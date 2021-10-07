@@ -2,7 +2,7 @@ import { IFilterSortOption, IGetRepositoriesInput, IRepositoryApiResult } from "
 
 import { filters } from "../Components/SearchRespositories/FilterSort";
 
-const buildQuery = (
+export const buildQuery = (
 	searchTerm: string,
 	pageNum: number,
 	filterBy: IFilterSortOption[],

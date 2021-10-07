@@ -7,7 +7,7 @@ const runEnv = process.env.NODE_ENV || "development";
 module.exports = {
 	entry: "./src/index.tsx",
 	output: {
-		filename: "[name].[hash].js",
+		filename: "[name].[fullHash].js",
 		path: resolve(__dirname, "dist"),
 		publicPath: "/",
 	},

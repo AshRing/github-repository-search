@@ -52,7 +52,9 @@ export const FilterSort = ({
 					type="text"
 					placeholder="Search Repositories"
 					value={searchTerm}
-					onChange={(e: React.ChangeEvent) => changeSearchTerm(e.target.value)}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+						changeSearchTerm(e.target.value)
+					}
 				/>
 				{searchTerm && (
 					<button type="button" onClick={() => changeSearchTerm("")}>

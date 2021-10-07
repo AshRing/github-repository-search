@@ -39,10 +39,10 @@ export const SearchRepositories = () => {
 	const location = useLocation();
 	const queryParams = useQuery();
 
-	React.useEffect(async () => {
+	React.useEffect(() => {
 		// apply values from query params
 		if (queryParams.toString().length) {
-			if (queryParams.get("pageNum") !== repoState.pageNum) {
+			if (parseInt(queryParams.get("pageNum")) !== repoState.pageNum) {
 				repoDispatch({ type: CHANGE_PAGE, pageNum: parseInt(queryParams.get("pageNum")) });
 			}
 			const filtersInQuery: IFilterSortOption[] = getFiltersInQuery(queryParams);
@@ -53,7 +53,7 @@ export const SearchRepositories = () => {
 				searchTerm: queryParams.get("searchTerm"),
 			});
 			if (queryParams.has("searchTerm")) {
-				await searchRepositories({
+				searchRepositories({
 					searchTerm: queryParams.get("searchTerm"),
 					filterBy: filtersInQuery,
 					sortByValue: queryParams.get("sortBy"),
@@ -97,9 +97,9 @@ export const SearchRepositories = () => {
 		}
 	}, [filterSortState.searchTerm]);
 
-	React.useEffect(async () => {
+	React.useEffect(() => {
 		if (filterSortState.searchTerm !== "") {
-			await searchRepositories();
+			searchRepositories();
 		}
 	}, [filterSortState.filterBy, filterSortState.sortBy, repoState.pageNum]);
 

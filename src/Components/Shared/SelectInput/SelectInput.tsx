@@ -36,7 +36,7 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 	const dropdownRef: React.RefObject<HTMLDivElement> = React.useRef();
 	useOnClickOutside(
 		dropdownRef,
-		(e) => !containerRef.current.contains(e.target) && toggleDropdown(false),
+		(e) => !containerRef.current.contains(e.target as Node) && toggleDropdown(false),
 	);
 
 	const handleMultiselectOptionSelection = (multiselectSelectedOption: string) => {
