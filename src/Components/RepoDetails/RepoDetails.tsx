@@ -11,26 +11,23 @@ import {
 	RepoDetailsLinks,
 	RepoTitle,
 } from "./RepoDetails.styles";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ILocationState } from "../../_types";
-import { Link } from "react-router-dom";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { format } from "date-fns";
-import { useLocation } from "react-router-dom";
 
 export const RepoDetails = () => {
 	const { state }: { state: ILocationState } = useLocation();
-	const { repo, filterSortState, pageNum } = state;
-	console.log(state);
+	const { repo } = state;
+	const history = useHistory();
 
 	return (
 		<RepoDetailsContainer>
 			<RepoDetailsInnerContainer>
-				<BackButton>
-					<Link to={{ pathname: "/", state: { filterSortState, pageNum } }}>
-						<FontAwesomeIcon icon={faTimes} />
-					</Link>
+				<BackButton onClick={() => history.goBack()}>
+					<FontAwesomeIcon icon={faTimes} />
 				</BackButton>
 				<div>
 					<RepoTitle>

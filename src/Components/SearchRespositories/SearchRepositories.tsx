@@ -7,21 +7,24 @@ import {
 	CHANGE_SORT,
 	GET_REPOS_SUCCESS,
 	RESET,
+	UPDATE_FROM_QUERY,
 	filterSortInitialState,
 	filterSortReducer,
 	repoReducer,
 	repoReducerInitialState,
 } from "./reducers";
 import { FilterSort, sortValues } from "./FilterSort";
-import { IFilterSortOption, IGetRepositoriesInput, ILocationState } from "../../_types";
+import { IFilterSortOption, IGetRepositoriesInput } from "../../_types";
 import { ScrollToTopButton, SearchRepositoriesContainer } from "./SearchRepositories.styles";
+import { getFiltersInQuery, updateQueryParam } from "./SearchRepositories.bl";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { AppWrapper } from "../App.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RepoList } from "./RepoList";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { getRepositories } from "../../_api";
-import { useLocation } from "react-router-dom";
+import { useQuery } from "../../_hooks";
 
 export const SearchRepositories = () => {
 	const [filterSortState, filterSortDispatch] = React.useReducer(
@@ -31,48 +34,35 @@ export const SearchRepositories = () => {
 	const [repoState, repoDispatch] = React.useReducer(repoReducer, repoReducerInitialState);
 	const [showScrollToTopBtn, toggleScrollToTopBtn] = React.useState<boolean>(false);
 	const filterSortRef: React.RefObject<HTMLDivElement> = React.useRef();
-	const { state }: { state: ILocationState } = useLocation();
+	const history = useHistory();
+	const location = useLocation();
+	const queryParams = useQuery();
+	console.log(queryParams.toString());
 
 	React.useEffect(async () => {
-		// apply previous filters
-		if (state) {
-			if (state.pageNum !== repoState.pageNum) {
-				repoDispatch({ type: CHANGE_PAGE, pageNum: state.pageNum });
+		// apply values from query params
+		if (queryParams.toString().length) {
+			if (queryParams.get("pageNum") !== repoState.pageNum) {
+				repoDispatch({ type: CHANGE_PAGE, pageNum: parseInt(queryParams.get("pageNum")) });
 			}
-
-			if (state.filterSortState?.filterBy.length > 0) {
-				state.filterSortState.filterBy.forEach((filter: IFilterSortOption) =>
-					filterSortDispatch({
-						type: ADD_FILTER,
-						filterName: filter.name,
-						filterValues: filter.values,
-					}),
-				);
-			}
-
-			if (state.filterSortState?.sortBy !== filterSortState.sortBy) {
-				filterSortDispatch({
-					type: CHANGE_SORT,
-					sortName: state.filterSortState.sortBy,
-				});
-			}
-
-			if (state.filterSortState?.searchTerm !== "") {
-				filterSortDispatch({
-					type: CHANGE_SEARCH_TERM,
-					searchTerm: state.filterSortState.searchTerm,
-				});
-			}
+			const filtersInQuery: IFilterSortOption[] = getFiltersInQuery(queryParams);
+			filterSortDispatch({
+				type: UPDATE_FROM_QUERY,
+				sortName: queryParams.get("sortBy"),
+				filters: filtersInQuery,
+				searchTerm: queryParams.get("searchTerm"),
+			});
 			await searchRepositories({
-				searchTerm: state.filterSortState.searchTerm,
-				filterBy: state.filterSortState.filterBy,
-				sortByValue: state.filterSortState.sortBy,
-				pageNum: state.pageNum,
+				searchTerm: queryParams.get("searchTerm"),
+				filterBy: filtersInQuery,
+				sortByValue: queryParams.get("sortBy"),
+				pageNum: parseInt(queryParams.get("pageNum")),
 			});
 		}
 	}, []);
 
 	React.useEffect(() => {
+		// show scroll to top button after scrolling past the search/filters/sorts
 		const observerOptions = {
 			root: null,
 			rootMargin: "0px",
@@ -95,6 +85,12 @@ export const SearchRepositories = () => {
 
 	React.useEffect(() => {
 		if (filterSortState.searchTerm === "") {
+			updateQueryParam(
+				location.search,
+				"searchTerm",
+				(paramsToSave: string) => history.replace({ search: paramsToSave }),
+				[],
+			);
 			repoDispatch({ type: RESET });
 		}
 	}, [filterSortState.searchTerm]);
@@ -109,7 +105,7 @@ export const SearchRepositories = () => {
 		const getReposInput: IGetRepositoriesInput = {
 			searchTerm: input?.searchTerm || filterSortState.searchTerm,
 			filterBy: input?.filterBy || filterSortState.filterBy,
-			sortByValue: input?.sortByValue || sortValues[filterSortState.sortBy],
+			sortByValue: sortValues[input?.sortByValue || filterSortState.sortBy],
 			pageNum: input?.pageNum || repoState.pageNum,
 		};
 		await getRepositories(getReposInput).then((res) => {
@@ -129,19 +125,37 @@ export const SearchRepositories = () => {
 				<h1>GitHub Repository Search</h1>
 				<div ref={filterSortRef}>
 					<FilterSort
-						addFilter={(filterToAdd: IFilterSortOption) =>
+						addFilter={(filterToAdd: IFilterSortOption) => {
+							updateQueryParam(
+								location.search,
+								filterToAdd.name,
+								(paramsToSave: string) => history.replace({ search: paramsToSave }),
+								filterToAdd.values,
+							);
 							filterSortDispatch({
 								type: ADD_FILTER,
 								filterName: filterToAdd.name,
 								filterValues: filterToAdd.values,
-							})
-						}
-						changeSearchTerm={(value: string) =>
-							filterSortDispatch({ type: CHANGE_SEARCH_TERM, searchTerm: value })
-						}
-						changeSort={(sortName: string) =>
-							filterSortDispatch({ type: CHANGE_SORT, sortName })
-						}
+							});
+						}}
+						changeSearchTerm={(value: string) => {
+							updateQueryParam(
+								location.search,
+								"searchTerm",
+								(paramsToSave: string) => history.replace({ search: paramsToSave }),
+								[value],
+							);
+							filterSortDispatch({ type: CHANGE_SEARCH_TERM, searchTerm: value });
+						}}
+						changeSort={(sortName: string) => {
+							updateQueryParam(
+								location.search,
+								"sortBy",
+								(paramsToSave: string) => history.replace({ search: paramsToSave }),
+								[sortName],
+							);
+							filterSortDispatch({ type: CHANGE_SORT, sortName });
+						}}
 						filterBy={filterSortState.filterBy}
 						searchRepositories={() => searchRepositories()}
 						searchTerm={filterSortState.searchTerm}
@@ -149,7 +163,15 @@ export const SearchRepositories = () => {
 					/>
 				</div>
 				<RepoList
-					changePage={(pageNum: number) => repoDispatch({ type: CHANGE_PAGE, pageNum })}
+					changePage={(pageNum: number) => {
+						updateQueryParam(
+							location.search,
+							"pageNum",
+							(paramsToSave: string) => history.replace({ search: paramsToSave }),
+							[pageNum.toString()],
+						);
+						repoDispatch({ type: CHANGE_PAGE, pageNum });
+					}}
 					filterSortState={filterSortState}
 					pageNum={repoState.pageNum}
 					repos={repoState.repos}

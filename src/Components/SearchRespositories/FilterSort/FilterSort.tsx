@@ -6,8 +6,8 @@ import {
 	SearchInput,
 	SearchInputContainer,
 } from "./FilterSort.styles";
+import { availableSorts, filters, languageFilterOptions } from ".";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { filters, languageFilterOptions, sortInputs } from ".";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IFilterSortOption } from "src/_types";
@@ -80,7 +80,7 @@ export const FilterSort = ({
 					<SelectInput
 						label="Sort"
 						selected={[sortBy]}
-						options={Object.keys(sortInputs).map((key: string) => sortInputs[key])}
+						options={availableSorts}
 						handleChange={(selected: string[]) => changeSort(selected[0])}
 					/>
 				</div>

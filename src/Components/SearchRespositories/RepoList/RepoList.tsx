@@ -18,15 +18,19 @@ interface Props {
 export const RepoList = ({ changePage, filterSortState, pageNum, repos, totalPages }: Props) => {
 	return (
 		<RepoListContainer>
-			{repos.map((repo: IRepository) => (
-				<Link
-					to={{ pathname: `/${repo.name}`, state: { repo, filterSortState, pageNum } }}
-					key={repo.id}
-				>
-					<Repo repoInfo={repo} />
-				</Link>
-			))}
-			{repos.length > 0 && (
+			{repos &&
+				repos.map((repo: IRepository) => (
+					<Link
+						to={{
+							pathname: `/${repo.name}`,
+							state: { repo, filterSortState, pageNum },
+						}}
+						key={repo.id}
+					>
+						<Repo repoInfo={repo} />
+					</Link>
+				))}
+			{repos?.length > 0 && (
 				<Pagination changePage={changePage} currentPage={pageNum} totalPages={totalPages} />
 			)}
 		</RepoListContainer>

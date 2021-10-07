@@ -12,6 +12,7 @@ export interface IFilterSortReducerAction {
 	filterName?: string;
 	filterValues?: string[];
 	sortName?: string;
+	filters?: IFilterSortOption[];
 }
 
 export interface IRepoReducerState {

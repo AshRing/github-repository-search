@@ -9,6 +9,7 @@ import { sortInputs } from "../FilterSort";
 export const ADD_FILTER = "ADD_FILTER";
 export const CHANGE_SEARCH_TERM = "CHANGE_SEARCH_TERM";
 export const CHANGE_SORT = "CHANGE_SORT";
+export const UPDATE_FROM_QUERY = "UPDATE_FROM_QUERY";
 
 export const filterSortInitialState: IFilterSortReducerState = {
 	filterBy: [],
@@ -47,6 +48,13 @@ export const filterSortReducer = (
 			return { ...state, searchTerm: action.searchTerm };
 		case CHANGE_SORT:
 			return { ...state, sortBy: action.sortName };
+		case UPDATE_FROM_QUERY:
+			return {
+				...state,
+				sortBy: action.sortName || state.sortBy,
+				searchTerm: action.searchTerm || state.searchTerm,
+				filterBy: action.filters || state.filterBy,
+			};
 		default:
 			return state;
 	}
