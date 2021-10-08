@@ -5,15 +5,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const runEnv = process.env.NODE_ENV || "development";
 
 module.exports = {
-	entry: "./src/index.tsx",
+	entry: path.resolve(__dirname, "./src/index.tsx"),
 	output: {
-		filename: "[name].[fullHash].js",
+		filename: "[name].bundle.js",
 		path: resolve(__dirname, "dist"),
 		publicPath: "/",
 	},
 	target: "web",
 	mode: runEnv,
-	devtool: runEnv === "production" ? "" : "eval-cheap-source-map",
+	devtool: runEnv === "production" ? "source-map" : "eval-cheap-source-map",
 	devServer: {
 		historyApiFallback: true,
 		hot: true,
