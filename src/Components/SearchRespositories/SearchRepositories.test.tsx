@@ -4,21 +4,13 @@ import * as routeData from "react-router-dom";
 import * as searchRepoBl from "./SearchRepositories.bl";
 
 import { FilterSort, filters, sortInputs } from "./FilterSort";
-import { TestWrapper, mockRepo1 } from "../../_mocks";
+import { TestWrapper, mockRepo1, waitForComponentToPaint } from "../../_mocks";
 import { filterSortInitialState, repoReducerInitialState } from "./reducers";
 import { mount, shallow } from "enzyme";
 
 import { IFilterSortOption } from "../../_types";
 import { RepoList } from "./RepoList";
 import { SearchRepositories } from ".";
-import { act } from "react-dom/test-utils";
-
-const waitForComponentToPaint = async (wrapper) => {
-	await act(async () => {
-		await new Promise((resolve) => setTimeout(resolve));
-		wrapper.update();
-	});
-};
 
 const mockIntersectionObserver = jest.fn();
 mockIntersectionObserver.mockReturnValue({

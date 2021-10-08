@@ -1,23 +1,24 @@
 import * as React from "react";
-import * as routeData from "react-router-dom";
+import * as apiCalls from "../../_api/getRepository";
 
-import { TestWrapper, mockRepo1 } from "../../_mocks";
+import { TestWrapper, mockRepo1, waitForComponentToPaint } from "../../_mocks";
 import { mount, shallow } from "enzyme";
 
 import { BackButton } from "./RepoDetails.styles";
 import { RepoDetails } from ".";
 
 const goBackSpy = jest.fn();
+const mockOwner = "mockOwner";
+const mockRepoName = "mockRepoName";
 jest.mock("react-router-dom", () => ({
 	__esModule: true,
 	...(jest.requireActual("react-router-dom") as {}),
 	useHistory: () => ({
 		goBack: goBackSpy,
 	}),
-	useLocation: () => ({
-		state: {
-			repo: mockRepo1,
-		},
+	useParams: () => ({
+		owner: mockOwner,
+		repoName: mockRepoName,
 	}),
 }));
 
@@ -26,46 +27,53 @@ test("RepoDetails matches snapshot", () => {
 	expect(wrapper).toMatchSnapshot();
 });
 
-test("back button click goes back a page", () => {
+test("gets repo on mount", async () => {
+	const mockApiCall = jest.spyOn(apiCalls, "getRepository").mockResolvedValue(mockRepo1);
 	const wrapper = mount(
 		<TestWrapper>
 			<RepoDetails />
 		</TestWrapper>,
 	);
+	await waitForComponentToPaint(wrapper);
+	expect(mockApiCall).toHaveBeenCalled();
+});
+
+test("back button click goes back a page", async () => {
+	jest.spyOn(apiCalls, "getRepository").mockResolvedValue(mockRepo1);
+	const wrapper = mount(
+		<TestWrapper>
+			<RepoDetails />
+		</TestWrapper>,
+	);
+	await waitForComponentToPaint(wrapper);
 	wrapper.find(BackButton).simulate("click");
 	expect(goBackSpy).toHaveBeenCalled();
 });
 
-test("doesn't display homepage if it is empty", () => {
-	jest.spyOn(routeData, "useLocation").mockReturnValue({
-		state: {
-			repo: { ...mockRepo1, homepage: "" },
-		},
-		pathname: "/welcome",
-		hash: "",
-		search: "",
+test("doesn't display homepage if it is empty", async () => {
+	jest.spyOn(apiCalls, "getRepository").mockResolvedValue({
+		...mockRepo1,
+		homepage: "",
 	});
 	const wrapper = mount(
 		<TestWrapper>
 			<RepoDetails />
 		</TestWrapper>,
 	);
+	await waitForComponentToPaint(wrapper);
 	expect(wrapper.find("#visitHomepageLink").exists()).toBeFalsy();
 });
 
-test("renders homepage if the field is populated", () => {
-	jest.spyOn(routeData, "useLocation").mockReturnValue({
-		state: {
-			repo: { ...mockRepo1, homepage: "some_homepage" },
-		},
-		pathname: "/welcome",
-		hash: "",
-		search: "",
+test("renders homepage if the field is populated", async () => {
+	jest.spyOn(apiCalls, "getRepository").mockResolvedValue({
+		...mockRepo1,
+		homepage: "some_homepage",
 	});
 	const wrapper = mount(
 		<TestWrapper>
 			<RepoDetails />
 		</TestWrapper>,
 	);
+	await waitForComponentToPaint(wrapper);
 	expect(wrapper.find("#visitHomepageLink").exists()).toBeTruthy();
 });

@@ -35,6 +35,7 @@ export const SearchRepositories = () => {
 	const [repoState, repoDispatch] = React.useReducer(repoReducer, repoReducerInitialState);
 	const [showScrollToTopBtn, toggleScrollToTopBtn] = React.useState<boolean>(false);
 	const filterSortRef: React.RefObject<HTMLDivElement> = React.useRef();
+	const isInitialMount: React.MutableRefObject<boolean> = React.useRef(true);
 	const history = useHistory();
 	const location = useLocation();
 	const queryParams = useQuery();
@@ -89,14 +90,18 @@ export const SearchRepositories = () => {
 	}, [filterSortRef]);
 
 	React.useEffect(() => {
-		if (filterSortState.searchTerm === "") {
-			updateQueryParam(
-				location.search,
-				"searchTerm",
-				(paramsToSave: string) => history.replace({ search: paramsToSave }),
-				[],
-			);
-			repoDispatch({ type: RESET });
+		if (!isInitialMount.current) {
+			if (filterSortState.searchTerm === "") {
+				updateQueryParam(
+					location.search,
+					"searchTerm",
+					(paramsToSave: string) => history.replace({ search: paramsToSave }),
+					[],
+				);
+				repoDispatch({ type: RESET });
+			}
+		} else {
+			isInitialMount.current = false;
 		}
 	}, [filterSortState.searchTerm]);
 
