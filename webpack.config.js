@@ -9,7 +9,7 @@ module.exports = {
 	output: {
 		filename: "[name].bundle.js",
 		path: resolve(__dirname, "dist"),
-		publicPath: "/github-repository-search/",
+		publicPath: runEnv === "production" ? "/github-repository-search/" : "/",
 	},
 	target: "web",
 	mode: runEnv,
