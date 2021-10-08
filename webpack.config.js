@@ -1,7 +1,7 @@
 const path = require("path");
 const resolve = require("path").resolve;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const CopyPlugin = require("copy-webpack-plugin");
 const runEnv = process.env.NODE_ENV || "development";
 
 module.exports = {
@@ -36,6 +36,9 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			filename: "index.html",
 			template: "./src/index.html",
+		}),
+		new CopyPlugin({
+			patterns: [{ from: path.resolve(__dirname, "_redirects"), to: "dist" }],
 		}),
 	],
 };
