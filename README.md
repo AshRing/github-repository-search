@@ -4,7 +4,7 @@ A simple application that searches for github repositories
 
 ## How to view
 
-[:arrow_forward: Open with Github Pages]()
+[:arrow_forward: Open with Netlify](https://zealous-clarke-0edf15.netlify.app/)
 
 #### Local:
 
