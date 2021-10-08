@@ -9,7 +9,7 @@ module.exports = {
 	output: {
 		filename: "[name].bundle.js",
 		path: resolve(__dirname, "dist"),
-		publicPath: "/",
+		publicPath: "/github-repository-search/",
 	},
 	target: "web",
 	mode: runEnv,
