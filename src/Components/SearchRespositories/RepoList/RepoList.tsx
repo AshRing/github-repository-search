@@ -32,7 +32,10 @@ export const RepoList = ({ changePage, pageNum, repos, reposLoading, totalPages 
 			{!reposLoading && (
 				<>
 					{repos?.map((repo: IRepository) => (
-						<Link to={`/${repo.owner.login}/${repo.name}`} key={repo.id}>
+						<Link
+							to={`/github-repository-search/${repo.owner.login}/${repo.name}`}
+							key={repo.id}
+						>
 							<Repo repoInfo={repo} />
 						</Link>
 					))}

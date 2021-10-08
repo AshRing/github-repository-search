@@ -8,16 +8,21 @@ module.exports = {
 	entry: path.resolve(__dirname, "./src/index.tsx"),
 	output: {
 		filename: "[name].bundle.js",
-		path: resolve(__dirname, "dist"),
-		publicPath: runEnv === "production" ? "/github-repository-search/" : "/",
+		path: resolve(__dirname, "dist", "github-repository-search"),
+		publicPath: "/github-repository-search",
 	},
 	target: "web",
 	mode: runEnv,
 	devtool: runEnv === "production" ? "source-map" : "eval-cheap-source-map",
 	devServer: {
-		historyApiFallback: true,
+		historyApiFallback: {
+			rewrites: [
+				{ from: /^\/github-repository-search/, to: "/github-repository-search/index.html" },
+			],
+		},
 		hot: true,
 		port: 9000,
+		open: ["/github-repository-search"],
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],
@@ -34,7 +39,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: "index.html",
-			template: "src/index.html",
+			template: "./src/index.html",
 		}),
 	],
 };

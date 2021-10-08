@@ -75,19 +75,17 @@ export const SearchRepositories = () => {
 			threshold: 0,
 		};
 		const observer = new IntersectionObserver(
-			([entry]) => toggleScrollToTopBtn(!entry.isIntersecting),
+			([entry]) => filterSortRef.current && toggleScrollToTopBtn(!entry.isIntersecting),
 			observerOptions,
 		);
-		if (filterSortRef.current) {
-			observer.observe(filterSortRef.current);
-		}
+		observer.observe(filterSortRef.current);
 
 		return () => {
 			if (filterSortRef.current) {
 				observer.unobserve(filterSortRef.current);
 			}
 		};
-	}, [filterSortRef]);
+	});
 
 	React.useEffect(() => {
 		if (!isInitialMount.current) {

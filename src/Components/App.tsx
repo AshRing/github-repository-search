@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Redirect, Route, Switch } from "react-router";
+import { Route, Switch } from "react-router";
 
 import { BrowserRouter } from "react-router-dom";
 import { RepoDetails } from "./RepoDetails";
@@ -10,11 +10,10 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Redirect exact from="/github-repository-search" to="/" />
-				<Route exact path="/">
+				<Route exact path="/github-repository-search">
 					<SearchRepositories />
 				</Route>
-				<Route path="/:owner/:repoName">
+				<Route path="/github-repository-search/:owner/:repoName">
 					<RepoDetails />
 				</Route>
 			</Switch>
