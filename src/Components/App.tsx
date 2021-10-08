@@ -10,10 +10,10 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route exact path="/github-repository-search">
+				<Route exact path="/">
 					<SearchRepositories />
 				</Route>
-				<Route path="/github-repository-search/:owner/:repoName">
+				<Route path="/:owner/:repoName">
 					<RepoDetails />
 				</Route>
 			</Switch>

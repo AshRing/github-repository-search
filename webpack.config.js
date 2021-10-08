@@ -8,21 +8,17 @@ module.exports = {
 	entry: path.resolve(__dirname, "./src/index.tsx"),
 	output: {
 		filename: "[name].bundle.js",
-		path: resolve(__dirname, "dist", "github-repository-search"),
-		publicPath: "/github-repository-search",
+		path: resolve(__dirname, "dist"),
+		publicPath: "/",
 	},
 	target: "web",
 	mode: runEnv,
 	devtool: runEnv === "production" ? "source-map" : "eval-cheap-source-map",
 	devServer: {
-		historyApiFallback: {
-			rewrites: [
-				{ from: /^\/github-repository-search/, to: "/github-repository-search/index.html" },
-			],
-		},
+		historyApiFallback: true,
 		hot: true,
 		port: 9000,
-		open: ["/github-repository-search"],
+		open: ["/"],
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],
