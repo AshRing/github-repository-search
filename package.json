@@ -6,8 +6,9 @@
 	"scripts": {
 		"test": "jest",
 		"dev": "webpack serve",
-		"build:dev": "tsc && webpack build --mode development",
-		"build:prod": "tsc && webpack build --mode production"
+		"build:prod": "tsc && webpack build --mode production",
+		"predeploy": "npm run build:prod",
+		"deploy": "gh-pages -d build"
 	},
 	"author": "",
 	"license": "ISC",
