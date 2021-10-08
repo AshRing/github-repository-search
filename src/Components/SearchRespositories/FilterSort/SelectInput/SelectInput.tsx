@@ -62,9 +62,15 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 						onClick={() => handleMultiselectOptionSelection(option)}
 					>
 						{optionSelected ? (
-							<FontAwesomeIcon icon={faCheckSquare} />
+							<FontAwesomeIcon
+								className="multiSelectOptionSelected"
+								icon={faCheckSquare}
+							/>
 						) : (
-							<FontAwesomeIcon icon={faSquare} />
+							<FontAwesomeIcon
+								className="multiSelectOptionNotSelected"
+								icon={faSquare}
+							/>
 						)}
 						<span>{option}</span>
 					</SelectOption>
@@ -100,18 +106,30 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 			<DrowdownArrow>
 				{dropdownOpen ? (
 					<>
-						<FontAwesomeIcon icon={faArrowUp} className="largeScreen" />
-						<FontAwesomeIcon icon={faArrowRight} className="smallScreen" />
+						<FontAwesomeIcon
+							icon={faArrowUp}
+							className="dropdownOpenIcon largeScreen"
+						/>
+						<FontAwesomeIcon
+							icon={faArrowRight}
+							className="dropdownOpenIcon smallScreen"
+						/>
 					</>
 				) : (
 					<>
-						<FontAwesomeIcon icon={faArrowDown} className="largeScreen" />
-						<FontAwesomeIcon icon={faArrowLeft} className="smallScreen" />
+						<FontAwesomeIcon
+							icon={faArrowDown}
+							className="dropdownClosedIcon largeScreen"
+						/>
+						<FontAwesomeIcon
+							icon={faArrowLeft}
+							className="dropdownClosedIcon smallScreen"
+						/>
 					</>
 				)}
 			</DrowdownArrow>
 			<SelectDropdown open={dropdownOpen} ref={dropdownRef}>
-				<button type="button" onClick={() => toggleDropdown(false)}>
+				<button id="dropdownCloseIcon" type="button" onClick={() => toggleDropdown(false)}>
 					<FontAwesomeIcon icon={faTimes} />
 				</button>
 				<h1>{label}</h1>

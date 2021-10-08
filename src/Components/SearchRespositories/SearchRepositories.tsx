@@ -42,7 +42,10 @@ export const SearchRepositories = () => {
 	React.useEffect(() => {
 		// apply values from query params
 		if (queryParams.toString().length) {
-			if (parseInt(queryParams.get("pageNum")) !== repoState.pageNum) {
+			if (
+				queryParams.get("pageNum") &&
+				parseInt(queryParams.get("pageNum")) !== repoState.pageNum
+			) {
 				repoDispatch({ type: CHANGE_PAGE, pageNum: parseInt(queryParams.get("pageNum")) });
 			}
 			const filtersInQuery: IFilterSortOption[] = getFiltersInQuery(queryParams);
@@ -178,7 +181,6 @@ export const SearchRepositories = () => {
 						);
 						repoDispatch({ type: CHANGE_PAGE, pageNum });
 					}}
-					filterSortState={filterSortState}
 					pageNum={repoState.pageNum}
 					repos={repoState.repos}
 					reposLoading={repoState.loading}

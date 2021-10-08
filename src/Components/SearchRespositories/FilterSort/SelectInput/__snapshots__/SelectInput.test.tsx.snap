@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiselect multiselect SelectInput matches snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`single select Single select SelectInput matches snapshot 1`] = `ShallowWrapper {}`;

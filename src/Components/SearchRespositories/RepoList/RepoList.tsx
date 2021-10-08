@@ -1,29 +1,21 @@
 import * as React from "react";
 
-import { IFilterSortReducerState, IRepository } from "../../../_types";
 import { RepoListContainer, StatusText } from "./RepoList.styles";
 
+import { IRepository } from "../../../_types";
 import { Link } from "react-router-dom";
-import { Pagination } from "../../../Components/Shared";
+import { Pagination } from "./Pagination";
 import { Repo } from "./Repo";
 
 interface Props {
 	changePage: (pageNum: number) => void;
-	filterSortState: IFilterSortReducerState;
 	pageNum: number;
 	repos: IRepository[];
 	reposLoading: boolean;
 	totalPages: number;
 }
 
-export const RepoList = ({
-	changePage,
-	filterSortState,
-	pageNum,
-	repos,
-	reposLoading,
-	totalPages,
-}: Props) => {
+export const RepoList = ({ changePage, pageNum, repos, reposLoading, totalPages }: Props) => {
 	const renderStatusText = () => {
 		if (reposLoading) {
 			return <StatusText>Loading...</StatusText>;
@@ -43,7 +35,7 @@ export const RepoList = ({
 						<Link
 							to={{
 								pathname: `/${repo.name}`,
-								state: { repo, filterSortState, pageNum },
+								state: { repo },
 							}}
 							key={repo.id}
 						>

@@ -30,14 +30,18 @@ export const buildQuery = (
 export const getRepositories = async (
 	input: IGetRepositoriesInput,
 ): Promise<IRepositoryApiResult> => {
-	const response = await fetch(
-		`https://api.github.com/search/repositories${buildQuery(
-			input.searchTerm,
-			input.pageNum,
-			input.filterBy,
-			input.sortByValue,
-		)}`,
-	);
+	try {
+		const response = await fetch(
+			`https://api.github.com/search/repositories${buildQuery(
+				input.searchTerm,
+				input.pageNum,
+				input.filterBy,
+				input.sortByValue,
+			)}`,
+		);
 
-	return response.json();
+		return response.json();
+	} catch (e) {
+		console.error(e);
+	}
 };

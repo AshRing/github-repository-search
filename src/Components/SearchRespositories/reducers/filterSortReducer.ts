@@ -34,10 +34,17 @@ export const filterSortReducer = (
 				const remainingFilters = state.filterBy.filter(
 					(filter: IFilterSortOption) => filter.name !== action.filterName,
 				);
-				return {
-					...state,
-					filterBy: [filterToAdd, ...remainingFilters],
-				};
+				if (action.filterValues.length === 0) {
+					return {
+						...state,
+						filterBy: remainingFilters,
+					};
+				} else {
+					return {
+						...state,
+						filterBy: [filterToAdd, ...remainingFilters],
+					};
+				}
 			} else {
 				return {
 					...state,

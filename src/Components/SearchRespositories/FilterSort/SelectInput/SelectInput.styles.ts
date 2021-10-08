@@ -1,4 +1,4 @@
-import { mediaQueries } from "../../../_style";
+import { mediaQueries } from "../../../../_style";
 import { rgba } from "polished";
 import styled from "styled-components";
 

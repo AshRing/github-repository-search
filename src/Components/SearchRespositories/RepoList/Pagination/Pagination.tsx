@@ -22,10 +22,10 @@ export const Pagination = ({ changePage, currentPage, totalPages }: Props) => {
 			<ArrowContainer>
 				{currentPage > 1 && (
 					<>
-						<button onClick={() => changePage(1)}>
+						<button id="pageDoubleLeftArrow" onClick={() => changePage(1)}>
 							<FontAwesomeIcon icon={faAngleDoubleLeft} />
 						</button>
-						<button onClick={() => changePage(currentPage - 1)}>
+						<button id="pageLeftArrow" onClick={() => changePage(currentPage - 1)}>
 							<FontAwesomeIcon icon={faAngleLeft} />
 						</button>
 					</>
@@ -37,10 +37,10 @@ export const Pagination = ({ changePage, currentPage, totalPages }: Props) => {
 			<ArrowContainer>
 				{currentPage < totalPages && (
 					<>
-						<button onClick={() => changePage(currentPage + 1)}>
+						<button id="pageRightArrow" onClick={() => changePage(currentPage + 1)}>
 							<FontAwesomeIcon icon={faAngleRight} />
 						</button>
-						<button onClick={() => changePage(totalPages)}>
+						<button id="pageDoubleRightArrow" onClick={() => changePage(totalPages)}>
 							<FontAwesomeIcon icon={faAngleDoubleRight} />
 						</button>
 					</>

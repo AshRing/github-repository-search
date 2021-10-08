@@ -10,8 +10,8 @@ import { availableSorts, filters, languageFilterOptions } from ".";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IFilterSortOption } from "src/_types";
-import { SelectInput } from "../../../Components/Shared";
+import { IFilterSortOption } from "../../../_types";
+import { SelectInput } from "./SelectInput";
 
 interface Props {
 	addFilter: (filterToAdd: IFilterSortOption) => void;
@@ -57,13 +57,17 @@ export const FilterSort = ({
 					}
 				/>
 				{searchTerm && (
-					<button type="button" onClick={() => changeSearchTerm("")}>
+					<button
+						type="button"
+						id="resetSearchButton"
+						onClick={() => changeSearchTerm("")}
+					>
 						<FontAwesomeIcon icon={faTimes} />
 					</button>
 				)}
 			</SearchInputContainer>
 			<FilterSortGroup>
-				<div>
+				<div id="languageFilterInput">
 					<SelectInput
 						multiselect
 						label="Language"
@@ -78,7 +82,7 @@ export const FilterSort = ({
 						}
 					/>
 				</div>
-				<div>
+				<div id="sortInput">
 					<SelectInput
 						label="Sort"
 						selected={[sortBy]}
