@@ -4,7 +4,7 @@ A simple application that searches for github repositories
 
 ## How to view
 
-<a href="https://ashring.github.io/github-repository-search" target="_blank">:arrow_forward: Open with Github Pages</a>
+[:arrow_forward: Open with Github Pages](https://ashring.github.io/github-repository-search)
 
 #### Local:
 
