@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {
 	ClearButton,
-	DrowdownArrow,
+	DropdownArrow,
 	SelectDropdown,
 	SelectInputContainer,
 	SelectLabel,
@@ -12,8 +12,6 @@ import {
 import {
 	faArrowDown,
 	faArrowLeft,
-	faArrowRight,
-	faArrowUp,
 	faCheckSquare,
 	faSquare,
 	faTimes,
@@ -103,31 +101,10 @@ export const SelectInput = ({ handleChange, label, multiselect, options, selecte
 		>
 			<SelectLabel shrinkLabel={selected.length}>{label}</SelectLabel>
 			<SelectedText>{selected.join(", ")}</SelectedText>
-			<DrowdownArrow>
-				{dropdownOpen ? (
-					<>
-						<FontAwesomeIcon
-							icon={faArrowUp}
-							className="dropdownOpenIcon largeScreen"
-						/>
-						<FontAwesomeIcon
-							icon={faArrowRight}
-							className="dropdownOpenIcon smallScreen"
-						/>
-					</>
-				) : (
-					<>
-						<FontAwesomeIcon
-							icon={faArrowDown}
-							className="dropdownClosedIcon largeScreen"
-						/>
-						<FontAwesomeIcon
-							icon={faArrowLeft}
-							className="dropdownClosedIcon smallScreen"
-						/>
-					</>
-				)}
-			</DrowdownArrow>
+			<DropdownArrow dropdownOpen={dropdownOpen}>
+				<FontAwesomeIcon icon={faArrowDown} className="largeScreen" />
+				<FontAwesomeIcon icon={faArrowLeft} className="smallScreen" />
+			</DropdownArrow>
 			<SelectDropdown open={dropdownOpen} ref={dropdownRef}>
 				<button id="dropdownCloseIcon" type="button" onClick={() => toggleDropdown(false)}>
 					<FontAwesomeIcon icon={faTimes} />

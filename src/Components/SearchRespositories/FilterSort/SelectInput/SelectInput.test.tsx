@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {
 	ClearButton,
+	DropdownArrow,
 	SelectDropdown,
 	SelectInputContainer,
 	SelectOption,
@@ -36,13 +37,11 @@ describe("single select", () => {
 			</TestWrapper>,
 		);
 		expect(wrapper.find(SelectDropdown).prop("open")).toBeFalsy();
-		expect(wrapper.find(".dropdownOpenIcon").exists()).toBeFalsy();
-		expect(wrapper.find(".dropdownClosedIcon").exists()).toBeTruthy();
+		expect(wrapper.find(DropdownArrow).prop("dropdownOpen")).toBeFalsy();
 		wrapper.find(SelectInputContainer).simulate("click");
 		wrapper.update();
 		expect(wrapper.find(SelectDropdown).prop("open")).toBeTruthy();
-		expect(wrapper.find(".dropdownOpenIcon").exists()).toBeTruthy();
-		expect(wrapper.find(".dropdownClosedIcon").exists()).toBeFalsy();
+		expect(wrapper.find(DropdownArrow).prop("dropdownOpen")).toBeTruthy();
 	});
 
 	test("close icon closes select dropdown", () => {

@@ -42,12 +42,14 @@ export const SelectedText = styled.span`
 	overflow: hidden;
 `;
 
-export const DrowdownArrow = styled.div`
+export const DropdownArrow = styled.div<{ dropdownOpen: boolean }>`
 	position: absolute;
 	top: 50%;
 	right: 0.5rem;
 	transform: translateY(-50%);
 	& > svg {
+		transition: 0.2s ease transform;
+		transform: rotate(${({ dropdownOpen }) => (dropdownOpen ? "180" : "0")}deg);
 		color: ${({ theme }) => theme.colors.secondary};
 	}
 
